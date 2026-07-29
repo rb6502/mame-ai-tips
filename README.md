@@ -8,7 +8,7 @@ Also, please write the submission comment yourself.  You can restate things the 
 One stylistic note: when typing prompts, I bracket file and pathnames with backticks so that names with spaces in them aren't ambiguous.  Here in Markdown land that translates to the `code style` with a gray background.  I found that appropriate so I've kept it.
 
 ## What model should I use?
-Any of the current frontier or near-frontier models have given good results.  I lack the local hardware to effectively run any of the high-end open weights models so my suggestions will stick to the well-known ones: **Sonnet 5**, **Opus 5**, or **Fable 5** from [Anthropic](https://claude.ai/), **GPT-5.5** or **GPT-5.6** from [OpenAI](https://openai.com/), or **Grok 4.5** from [SpaceX AI](https://x.ai/).  I have personally done useful MAME work with each of the listed models.
+Any of the current frontier or near-frontier models have given good results.  I lack the local hardware to effectively run any of the high-end open weights models so my suggestions will stick to the well-known closed ones: **Sonnet 5**, **Opus 5**, or **Fable 5** from [Anthropic](https://claude.ai/), **GPT-5.5** or **GPT-5.6** from [OpenAI](https://openai.com/), or **Grok 4.5** from [SpaceX AI](https://x.ai/).  I have personally done useful MAME work with each of the listed models.
 
 Note that the version listed is important!  **Opus 4.8** can and has done useful MAME work but is much more likely to go haywire.  **GPT 4.5** is when GPT started getting really good for code, and 4.6 is of course better.  Similarly, **Grok 4.5** is the first version that's able to do good quality MAME work.  It's not as good as **Opus 5** or **GPT 4.6** but it's much cheaper per token and it's a worthwhile tradeoff in my experience.
 
@@ -20,7 +20,7 @@ Each model vendor has a program called a "harness" which enables their models to
 You will also need a paid account to do any kind of real work.  If you have a Premium or better X/Twitter account you automatically get some Grok usage.  The vendors have settled in mostly at around US$20 per month as the going rate for a decent amount of usage on the coding models and harnesses.  Anthropic's Pro account at US$17 gets you decent limits for MAME usage.  OpenAI's US$8/month Go account gets your foot in the door with Codex, and the US$20/month Plus account gives you GPT-5.6 access and better limits.  SpaceX AI's Free plan lets you actually use Grok Build on a limited basis for free, and their next tier up is the US$30/month SuperGrok account.
 
 ## What can I do with AI and MAME?
-Here are some things I've used AI models for with MAME development.  Prompts are similar to but not necessarily exact, and in some cases reflect knowledge I didn't have when I did that actual thing.
+Here are some things I've used AI models for with MAME development.  Prompts are similar to what I really used to do these things, but not necessarily exact.  In some cases the prompts reflect knowledge I didn't have when I did that actual thing.
 
 ### Bug tracing
 

@@ -44,7 +44,7 @@ You know what you want to do, but you're not sure how to do it?  The model can g
 
 ### Mechanical refactoring
 
-You've got working code, but it's in the wrong form to move forward.  Or you realize you've made a grave architectural mistake but now there's a few thousand lines of working code.  The model can get your back.
+You've got working code, but it's in the wrong form to move forward.  Or you realize you've made a grave architectural mistake but now there's a few thousand lines of working code.  The model is happy to do it for you and you can do something less likely to aggravate your repetitive strain injury.
 
 **Sample prompt:** *For asc_easc_device, move the FIFO popping and status update logic from sound_stream_update() to a new function called pop_fifo().*
 

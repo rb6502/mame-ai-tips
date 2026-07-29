@@ -19,23 +19,33 @@ You will also need a paid account to do any kind of real work.  If you have a Pr
 Here are some things I've used AI models for with MAME development.  Prompts are similar to but not necessarily exact, and in some cases reflect knowledge I didn't have when I did that actual thing.
 
 ### Bug tracing
+
 Got funky bugs?  Describe the bug to the model and let it trace the issue.
+
 **Sample prompt:** *When I boot the Power Macintosh 7200 in MAME with Mac OS 7.6.1 performance gets very bad.  My command line is `mame pmac7200 mac761`.  You can use MAME's -rtc option to make runs deterministic, and MAME's Lua boot scripting to automate MAME`*
 
 ### Static firmware analysis
+
 Need a starting point to create or refine a skeleton driver?  Let the model do the initial exploration.
+
 **Sample prompt:** *~/s3000xl.bin is the firmware image for an Akai S3000XL rackmount MIDI sampler, which uses the NEC V53 (x86) CPU.  MAME unidasm is available at ~/mame/unidasm for disassembly, and remember that numeric arguments to it are assumed to be decimal unless you prefix with 0x.  Perform an analysis of the operation of the firmware and create a report with the memory and I/O port maps.*
 
 ### Correctness verification
+
 Know that there are bugs in a MAME device or component but not sure where to look?  The model can reduce the tedious searching.
+
 **Sample prompt:** *Please verify the operation of MAME's M680x0 FPU emulation in src/devices/cpu/m68000.  Use the Motorola manuals for reference.  The 68881 manual is at ~/Documents/m68k/68881_Users_Guide.pdf, the 68030 manual is at ~/Documents/m68k/MC68030_Users_Manual.pdf, and the 68040 manual is at ~/Documents/m68k/MC68040_Users_Manual.pdf.  Create a report on possible issues found.*
 
 ### Directional guidance
+
 You know what you want to do, but you're not sure how to do it?  The model can give some ideas.
+
 **Sample prompt:** *I want to emulate the Apple MESH SCSI controller.  It's a pretty heavily customized version of the common NCR5394, and a programming manual is at ~/Documents/Mac/MESH_Users_Guide.pdf.  Would it be reasonable to subclass the 5394 for this, or would it be better to create a separate nscsi device?*
 
 ### Mechanical refactoring
+
 You've got working code, but it's in the wrong form to move forward.  Or you realize you've made a grave architectural mistake but now there's a few thousand lines of working code.  The model can get your back.
+
 **Sample prompt:** *For asc_easc_device, move the FIFO popping and status update logic from sound_stream_update() to a new function called pop_fifo().*
 
 ## Things I've learned

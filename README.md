@@ -1,5 +1,5 @@
 # Tips for using AI to help with MAME development
-Hints and tips for using AI assistance with MAME.
+Hints and tips for using AI assistance with MAME.  Version 2, July 29, 2026.
 
 **WARNING**: so-called "vibe coding" is *not acceptable* for MAME.  You're welcome to use it for personal things for yourself, but for doing actual submittable MAME work you need some experience with programming and the ability to understand and edit what the AI models output.
 
@@ -8,7 +8,7 @@ Also, please write the submission comment yourself.  You can restate things the 
 ## What model should I use?
 Any of the current frontier or near-frontier models have given good results.  I lack the local hardware to effectively run any of the high-end open weights models so my suggestions will stick to the well-known ones: **Sonnet 5**, **Opus 5**, or **Fable 5** from [Anthropic](https://claude.ai/), **GPT-5.5** or **GPT-5.6** from [OpenAI](https://openai.com/), or **Grok 4.5** from [SpaceX AI](https://x.ai/).  I have personally done useful MAME work with each of the listed models.  Note that the version listed is important.  Opus 4.8 can and has done useful MAME work but is much more likely to go haywire.  GPT 4.5 is when GPT started getting really good for code, and 4.6 is of course better.  Similarly, Grok 4.5 is the first version that's able to do good quality MAME work.  It's not as good as Opus 5 or GPT 4.6 but it's much cheaper per token and it's a worthwhile tradeoff in my experience.
 
-I plan to evaluate **Kimi K3** from [Moonshot AI](https://moonshot.ai/) soon.  As advertised it's similar tradeoffs to Grok 4.5: not at the latest frontier capability, but substantially less expensive per token.
+I plan to evaluate **Kimi K3** from [Moonshot AI](https://moonshot.ai/) soon.  As advertised it has similar tradeoffs to Grok 4.5: not at the latest frontier capability, but substantially less expensive per token.
 
 ## How do I get started?
 Each model vendor has a program called a "harness" which enables their models to work with programs and data on your local machine.  Anthropic's is **Claude Code**, OpenAI's is **Codex** (although Codex is now being merged with their general ChatGPT app and I'm unclear what the final branding is going to be), and xAI's is just called "Grok".  Installation instructions are available on each vendor's site, but typically there's a command line to copy/paste for macOS or Linux and an installer for Windows.

@@ -5,7 +5,7 @@ Hints and tips for using AI assistance with MAME.  Version 2, July 29, 2026.
 
 Also, please write the submission comment yourself.  You can restate things the AI model said, but the AI model spew is 10 times more effort for whoever is reviewing your submission.  And follow MAME's [official AI guidelines](https://docs.mamedev.org/contributing/index.html).  (They're at the bottom of that page).
 
-One stylistic note: when typing prompts, I bracket them with backticks so that paths with spaces in them aren't ambiguous.  Here in Markdown land that translates to the `code style` with a gray background.  I found that appropriate so I've kept it.
+One stylistic note: when typing prompts, I bracket file and pathnames with backticks so that names with spaces in them aren't ambiguous.  Here in Markdown land that translates to the `code style` with a gray background.  I found that appropriate so I've kept it.
 
 ## What model should I use?
 Any of the current frontier or near-frontier models have given good results.  I lack the local hardware to effectively run any of the high-end open weights models so my suggestions will stick to the well-known ones: **Sonnet 5**, **Opus 5**, or **Fable 5** from [Anthropic](https://claude.ai/), **GPT-5.5** or **GPT-5.6** from [OpenAI](https://openai.com/), or **Grok 4.5** from [SpaceX AI](https://x.ai/).  I have personally done useful MAME work with each of the listed models.

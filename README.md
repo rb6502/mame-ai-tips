@@ -40,7 +40,7 @@ Know that there are bugs in a MAME device or component but not sure where to loo
 
 You know what you want to do, but you're not sure how to do it?  The model can give some ideas.
 
-**Sample prompt:** *I want to emulate the Apple MESH SCSI controller.  It's a pretty heavily customized version of the common NCR5394, and a programming manual is at ~/Documents/Mac/MESH_Users_Guide.pdf.  Would it be reasonable to subclass the 5394 for this, or would it be better to create a separate nscsi device?*
+**Sample prompt:** *I want to emulate the Apple MESH SCSI controller.  It's a pretty heavily customized version of the common NCR5394, and a programming manual is at ~/Documents/Mac/MESH_Users_Guide.pdf.  Would it be reasonable to subclass the 5394 in src/devices/machine/ncr53c90.cpp for this, or would it be better to create a separate nscsi device?*
 
 ### Mechanical refactoring
 

@@ -1,5 +1,5 @@
 # Tips for using AI to help with MAME development
-Hints and tips for using AI assistance with MAME.  Version 3, August 7, 2026.
+Hints and tips for using AI assistance with MAME.  Version 3.1, August 7, 2026.
 
 **WARNING**: so-called "vibe coding" is *not acceptable* for MAME.  You're welcome to use it for personal things for yourself, but for doing actual submittable MAME work you need some experience with programming and the ability to understand and edit what the AI models output.
 
@@ -57,4 +57,5 @@ You've got working code, but it's in the wrong form to move forward.  Or you rea
 ## Things I've learned
 - Models can and do get off on a tangent that's not useful towards solving your problem, especially when performing bug tracing.  Don't be afraid to hit Esc to stop them and offer a correction.  Codex has the "nudge" feature for exactly this reason.
 - The longer a session runs and the more context builds up, the dumber the model gets.  Don't be afraid to ask it to create a handoff document, and then use that handoff document to seed a new, clean session.
-- When you are having the model generate code, tell it in advance what your preferred bracing style is (GNU, or Allman, or "follow the style of the rest of the file").  And don't be afraid to ruthlessly edit the comments it adds.  Models output a paragraph where a sentence will do and a sentence in cases where even a junior programmer can see what's happening.
+- When you are having the model generate code, tell it in advance what your preferred bracing style is (GNU, or Allman, or "follow the style of the rest of the file").
+- Don't be afraid to ruthlessly edit the comments it adds.  Models output a paragraph where a sentence will do and a sentence in cases where even a junior programmer can see what's happening.  Including something like "Keep comments limited to tricky or unclear algorithms, and don't justify the changes" in your prompt can help too.

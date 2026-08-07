@@ -1,5 +1,5 @@
 # Tips for using AI to help with MAME development
-Hints and tips for using AI assistance with MAME.  Version 3.2, August 7, 2026.
+Hints and tips for using AI assistance with MAME.  Version 3.3, August 7, 2026.
 
 **WARNING**: so-called "vibe coding" is *not acceptable* for MAME.  You're welcome to use it for personal things for yourself, but for doing actual submittable MAME work you need some experience with programming and the ability to understand and edit what the AI models output.
 
@@ -62,5 +62,5 @@ You've got working code, but it's in the wrong form to move forward.  Or you rea
 
 ## When submitting to MAME
 - Take a final pass over the code.  Make sure comments are useful and not just spewing.  Anthropic's models in particular love to basically apologize on bended knee for every line changed, and that's unnecessary and off-putting.
-- Write the pull request description yourself.  At the very least, take a machete to whatever your model generated because it's probably excessive.  [This PR](https://github.com/mamedev/mame/pull/15807) is a good example of what to avoid.  All of that show-and-tell in the description is not necessary.  Just tell us what changed and what it fixed.  MAME's historical readme.txt files provide a good idea of what good taste looks like in pull request descriptions.
+- Write the pull request description yourself.  At the very least, take a machete to whatever your model generated because it's probably excessive.  A bunch of show-and-tell in the description is not necessary (if you include a table, you're probably doing it wrong).  Just tell us what changed and what it fixed.  MAME's historical readme.txt files provide a good idea of what good taste looks like in pull request descriptions.
 - Don't forget your AI usage disclosure.

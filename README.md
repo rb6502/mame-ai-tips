@@ -1,5 +1,5 @@
 # Tips for using AI to help with MAME development
-Hints and tips for using AI assistance with MAME.  Version 2, July 29, 2026.
+Hints and tips for using AI assistance with MAME.  Version 3, August 7, 2026.
 
 **WARNING**: so-called "vibe coding" is *not acceptable* for MAME.  You're welcome to use it for personal things for yourself, but for doing actual submittable MAME work you need some experience with programming and the ability to understand and edit what the AI models output.
 
@@ -12,10 +12,12 @@ Any of the current frontier or near-frontier models have given good results.  I 
 
 Note that the version listed is important!  **Opus 4.8** can and has done useful MAME work but is much more likely to go haywire.  **GPT 4.5** is when GPT started getting really good for code, and 4.6 is of course better.  Similarly, **Grok 4.5** is the first version that's able to do good quality MAME work.  It's not as good as **Opus 5** or **GPT 4.6** but it's much cheaper per token and it's a worthwhile tradeoff in my experience.
 
-I plan to evaluate **Kimi K3** from [Moonshot AI](https://moonshot.ai/) soon.  As advertised it has similar tradeoffs to **Grok 4.5**: not at the latest frontier capability, but substantially less expensive per token.
+I plan to evaluate **Kimi K3** from [Moonshot AI](https://moonshot.ai/) as soon as I make it through their waiting list.  As advertised it has similar tradeoffs to **Grok 4.5**: not at the latest frontier capability, but substantially less expensive per token.
+
+I will also be evaluating **Muse Spark** from [Meta](https://developer.meta.com/ai/products/muse-code/) within the next few days.
 
 ## How do I get started?
-Each model vendor has a program called a "harness" which enables their models to work with programs and data on your local machine.  Anthropic's is **Claude Code**, OpenAI's is **Codex** (although Codex is now being merged with their general ChatGPT app and I'm unclear what the final branding is going to be), and xAI's is **Grok Build**.  Installation instructions are available on each vendor's site, but typically there's a command line to copy/paste for macOS or Linux and an installer for Windows.
+Each model vendor has a program called a "harness" which enables their models to work with programs and data on your local machine.  Anthropic's is **Claude Code**, OpenAI's is **Codex** (although Codex is now being merged with their general ChatGPT app and I'm unclear what the final branding is going to be), and SpaceX AI's is **Grok Build**.  Installation instructions are available on each vendor's site, but typically there's a command line to copy/paste for macOS or Linux and an installer for Windows.
 
 You will also need a paid account to do any kind of real work.  The vendors have settled in mostly at around US$20 per month as the going rate for a decent amount of usage on the coding models and harnesses.  Anthropic's Pro account at US$17 gets you decent limits for MAME usage.  OpenAI's US$8/month Go account gets your foot in the door with Codex, and the US$20/month Plus account gives you GPT-5.6 access and better limits.  SpaceX AI's Free plan lets you actually use Grok Build on a limited basis for free, and their next tier up is the US$30/month SuperGrok account.  There's also an unofficial tier between those two where you get some usage if you have a Premium X/Twitter account.
 

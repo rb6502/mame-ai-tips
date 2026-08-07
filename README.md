@@ -34,7 +34,7 @@ Got funky bugs?  Describe the bug to the model and let it trace the issue.
 
 Need a starting point to create or refine a skeleton driver?  Let the model do the initial exploration.
 
-**Sample prompt:** *~/s3000xl.bin is the firmware image for an Akai S3000XL rackmount MIDI sampler, which uses the NEC V53 (x86) CPU.  MAME unidasm is available at `~/mame/unidasm` for disassembly, and remember that numeric arguments to it are assumed to be decimal unless you prefix with 0x.  Perform an analysis of the operation of the firmware and create a report with the memory and I/O port maps.*
+**Sample prompt:** *`~/s3000xl.bin` is the firmware image for an Akai S3000XL rackmount MIDI sampler, which uses the NEC V53 (x86) CPU.  MAME unidasm is available at `~/mame/unidasm` for disassembly, and remember that numeric arguments to it are assumed to be decimal unless you prefix with 0x.  Perform an analysis of the operation of the firmware and create a report with the memory and I/O port maps.*
 
 ### Correctness verification
 

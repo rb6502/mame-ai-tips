@@ -1,5 +1,5 @@
 # Tips for using AI to help with MAME development
-Hints and tips for using AI assistance with MAME.  Version 3.3, August 7, 2026.
+Hints and tips for using AI assistance with MAME.  Version 3.4, August 13, 2026.
 
 **WARNING**: so-called "vibe coding" is *not acceptable* for MAME.  You're welcome to use it for personal things for yourself, but for doing actual submittable MAME work you need some experience with programming and the ability to understand and edit what the AI models output.
 
@@ -8,13 +8,13 @@ Also, please write the submission comment yourself.  You can restate things the 
 One stylistic note: when typing prompts, I bracket file and pathnames with backticks so that names with spaces in them aren't ambiguous.  Here in Markdown land that translates to the `code style` with a gray background.  I found that appropriate so I've kept it.
 
 ## What model should I use?
-Any of the current frontier or near-frontier models have given good results.  I lack the local hardware to effectively run any of the high-end open weights models so my suggestions will stick to the well-known closed ones: **Sonnet 5**, **Opus 5**, or **Fable 5** from [Anthropic](https://claude.ai/), **GPT-5.5** or **GPT-5.6** from [OpenAI](https://openai.com/), or **Grok 4.5** from [SpaceX AI](https://x.ai/).  I have personally done useful MAME work with each of the listed models.
+Any of the current frontier or near-frontier models have given good results.  I lack the local hardware to effectively run any of the high-end open weights models so my suggestions will stick to the well-known closed ones: **Sonnet 5**, **Opus 5**, or **Fable 5** from [Anthropic](https://claude.ai/), **GPT-5.5** or **GPT-5.6** from [OpenAI](https://openai.com/), or **Grok 4.6** from [SpaceX AI](https://x.ai/).  I have personally done useful MAME work with each of the listed models.
 
-Note that the version listed is important!  **Opus 4.8** can and has done useful MAME work but is much more likely to go haywire.  **GPT 4.5** is when GPT started getting really good for code, and 4.6 is of course better.  Similarly, **Grok 4.5** is the first version that's able to do good quality MAME work.  It's not as good as **Opus 5** or **GPT 4.6** but it's much cheaper per token and it's a worthwhile tradeoff in my experience.
+Note that the version listed is important!  **Opus 4.8** can and has done useful MAME work but is much more likely to go haywire.  **GPT 4.5** is when GPT started getting really good for code, and 4.6 is of course better.  Similarly, **Grok 4.5** is the first version that's able to do good quality MAME work.  It's not as good as **Opus 5** or **GPT 4.6** but it's much cheaper per token and it's a worthwhile tradeoff in my experience.  **Grok 4.6** seems to be a significant upgrade in my very early testing - I gave it a hard firmware analysis problem that I know the answer to and was very pleased with the quality of the results.  I will give it an actual MAME task soon to evaluate how it does there.
 
 I plan to evaluate **Kimi K3** from [Moonshot AI](https://moonshot.ai/) as soon as I make it through their waiting list.  As advertised it has similar tradeoffs to **Grok 4.5**: not at the latest frontier capability, but substantially less expensive per token.
 
-I will also be evaluating **Muse Spark** from [Meta](https://developer.meta.com/ai/products/muse-code/) within the next few days.
+I will also be evaluating **Muse Spark** from [Meta](https://developer.meta.com/ai/products/muse-code/) as soon as I am able to.  There's some issue with my Meta AI account that I can't figure out.
 
 ## How do I get started?
 Each model vendor has a program called a "harness" which enables their models to work with programs and data on your local machine.  Anthropic's is **Claude Code**, OpenAI's is **Codex** (although Codex is now being merged with their general ChatGPT app and I'm unclear what the final branding is going to be), and SpaceX AI's is **Grok Build**.  Installation instructions are available on each vendor's site, but typically there's a command line to copy/paste for macOS or Linux and an installer for Windows.
@@ -55,10 +55,12 @@ You've got working code, but it's in the wrong form to move forward.  Or you rea
 **Sample prompt:** *For asc_easc_device, move the FIFO popping and status update logic from sound_stream_update() to a new function called pop_fifo().*
 
 ## Things I've learned
+- You get better results on multi-step tasks by asking the model to create a plan for what you want first.  That also gives you an opportunity to review the plan and issue corrections and clarifications.
 - Models can and do get off on a tangent that's not useful towards solving your problem, especially when performing bug tracing.  Don't be afraid to hit Esc to stop them and offer a correction.  Codex has the "nudge" feature for exactly this reason.
-- The longer a session runs and the more context builds up, the dumber the model gets.  Don't be afraid to ask it to create a handoff document, and then use that handoff document to seed a new, clean session.
+- The longer a session runs and the more context builds up, the dumber the model gets.  Don't be afraid to ask it to create a handoff document, and then use that handoff document to seed a new, clean session that will "think more clearly".
 - When you are having the model generate code, tell it in advance what your preferred bracing style is (GNU, or Allman, or "follow the style of the rest of the file").
 - Don't be afraid to ruthlessly edit the comments it adds.  Models output a paragraph where a sentence will do and a sentence in cases where even a junior programmer can see what's happening.  Including something like "Keep comments limited to tricky or unclear algorithms, and don't justify the changes" in your prompt can help too.
+- If you're in a work tree that you don't want to submit directly from, tell it to not do any git write operations.
 
 ## When submitting to MAME
 - Take a final pass over the code.  Make sure comments are useful and not just spewing.  Anthropic's models in particular love to basically apologize on bended knee for every line changed, and that's unnecessary and off-putting.

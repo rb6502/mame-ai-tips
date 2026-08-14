@@ -56,6 +56,7 @@ You've got working code, but it's in the wrong form to move forward.  Or you rea
 
 ## Things I've learned
 - You get better results on multi-step tasks by asking the model to create a plan for what you want first.  That also gives you an opportunity to review the plan and issue corrections and clarifications.
+- When sending the model on a bug hunt, not every change it makes will turn out to be important once you get to success.  It's always a good idea to try reverting each of the changes afterwards to find out what was important.  The Mac II A/UX patch I was sent originally was much, much more invasive than what actually landed.  (Admittedly, the one to macscsi.cpp was more involved but it also fixed A/UX on all 5380 machines).
 - Models can and do get off on a tangent that's not useful towards solving your problem, especially when performing bug tracing.  Don't be afraid to hit Esc to stop them and offer a correction.  Codex has the "nudge" feature for exactly this reason.
 - The longer a session runs and the more context builds up, the dumber the model gets.  Don't be afraid to ask it to create a handoff document, and then use that handoff document to seed a new, clean session that will "think more clearly".
 - When you are having the model generate code, tell it in advance what your preferred bracing style is (GNU, or Allman, or "follow the style of the rest of the file").

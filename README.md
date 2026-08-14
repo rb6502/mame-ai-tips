@@ -1,5 +1,5 @@
 # Tips for using AI to help with MAME development
-Hints and tips for using AI assistance with MAME.  Version 3.4, August 13, 2026.
+Hints and tips for using AI assistance with MAME.  Version 3.5, August 14, 2026.
 
 **WARNING**: so-called "vibe coding" is *not acceptable* for MAME.  You're welcome to use it for personal things for yourself, but for doing actual submittable MAME work you need some experience with programming and the ability to understand and edit what the AI models output.
 
@@ -10,11 +10,11 @@ One stylistic note: when typing prompts, I bracket file and pathnames with backt
 ## What model should I use?
 Any of the current frontier or near-frontier models have given good results.  I lack the local hardware to effectively run any of the high-end open weights models so my suggestions will stick to the well-known closed ones: **Sonnet 5**, **Opus 5**, or **Fable 5** from [Anthropic](https://claude.ai/), **GPT-5.5** or **GPT-5.6** from [OpenAI](https://openai.com/), or **Grok 4.6** from [SpaceX AI](https://x.ai/).  I have personally done useful MAME work with each of the listed models.
 
-Note that the version listed is important!  **Opus 4.8** can and has done useful MAME work but is much more likely to go haywire.  **GPT 4.5** is when GPT started getting really good for code, and 4.6 is of course better.  Similarly, **Grok 4.5** is the first version that's able to do good quality MAME work.  It's not as good as **Opus 5** or **GPT 4.6** but it's much cheaper per token and it's a worthwhile tradeoff in my experience.  **Grok 4.6** seems to be a significant upgrade in my very early testing - I gave it a hard firmware analysis problem that I know the answer to and was very pleased with the quality of the results.  I will give it an actual MAME task soon to evaluate how it does there.
+Note that the version listed is important!  **Opus 4.8** can and has done useful MAME work but is much more likely to go haywire.  **GPT 4.5** is when GPT started getting really good for code, and 4.6 is quite a bit better in my testing.  Similarly, **Grok 4.5** is the first version that's able to do good quality MAME work, and 4.6 is a significant upgrade over that.
 
 I plan to evaluate **Kimi K3** from [Moonshot AI](https://moonshot.ai/) as soon as I make it through their waiting list.  As advertised it has similar tradeoffs to **Grok 4.5**: not at the latest frontier capability, but substantially less expensive per token.
 
-I will also be evaluating **Muse Spark** from [Meta](https://developer.meta.com/ai/products/muse-code/) as soon as I am able to.  There's some issue with my Meta AI account that I can't figure out.
+I will also be evaluating **Muse Spark** from [Meta](https://developer.meta.com/ai/products/muse-code/) as soon as I am able to.  There's some issue with my Meta AI account that I haven't gotten resolved yet.
 
 ## How do I get started?
 Each model vendor has a program called a "harness" which enables their models to work with programs and data on your local machine.  Anthropic's is **Claude Code**, OpenAI's is **Codex** (although Codex is now being merged with their general ChatGPT app and I'm unclear what the final branding is going to be), and SpaceX AI's is **Grok Build**.  Installation instructions are available on each vendor's site, but typically there's a command line to copy/paste for macOS or Linux and an installer for Windows.

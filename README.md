@@ -7,7 +7,7 @@ Also, please write the submission comment yourself.  You can restate things the 
 
 One stylistic note: when typing prompts, I bracket file and pathnames with backticks so that names with spaces in them aren't ambiguous.  Here in Markdown land that translates to the `code style` with a gray background.  I found that appropriate so I've kept it.
 
-## What model should I use?
+## What models can I use?
 Any of the current frontier or near-frontier models have given good results.  I lack the local hardware to effectively run any of the high-end open weights models so my suggestions will stick to the well-known closed ones: **Sonnet 5**, **Opus 5**, or **Fable 5** from [Anthropic](https://claude.ai/), **GPT-5.5** or **GPT-5.6** from [OpenAI](https://openai.com/), or **Grok 4.6** from [SpaceX AI](https://x.ai/).  I have personally done useful MAME work with each of the listed models.
 
 Note that the version listed is important!  **Opus 4.8** can and has done useful MAME work but is much more likely to go haywire.  **GPT 4.5** is when GPT started getting really good for code, and 4.6 is quite a bit better in my testing.  Similarly, **Grok 4.5** is the first version that's able to do good quality MAME work, and 4.6 is a significant upgrade over that.

@@ -1,5 +1,5 @@
 # Tips for using AI to help with MAME development
-Hints and tips for using AI assistance with MAME.  Version 3.5, August 14, 2026.
+Hints and tips for using AI assistance with MAME.  Version 3.6, August 19, 2026.
 
 **WARNING**: so-called "vibe coding" is *not acceptable* for MAME.  You're welcome to use it for personal things for yourself, but for doing actual submittable MAME work you need some experience with programming and the ability to understand and edit what the AI models output.
 
@@ -14,7 +14,7 @@ Note that the version listed is important!  **Opus 4.8** can and has done useful
 
 I plan to evaluate **Kimi K3** from [Moonshot AI](https://moonshot.ai/) as soon as I make it through their waiting list.  As advertised it has similar tradeoffs to **Grok 4.5**: not at the latest frontier capability, but substantially less expensive per token.
 
-I will also be evaluating **Muse Spark** from [Meta](https://developer.meta.com/ai/products/muse-code/) as soon as I am able to.  There's some issue with my Meta AI account that I haven't gotten resolved yet.
+I am currently evaluating **Muse Spark** from [Meta](https://developer.meta.com/ai/products/muse-code/).  My early verdict: it's not as good as the latest and greatest models but it's definitely capable, and very cheap.  You will definitely need to hold it's hand a lot more, but it's a good and relatively inexpensive way to dip your toes into AI assisted development.  I appreciate the pay-as-you-go setup: you can see a live accounting of how much you owe and it doesn't actually bill you until it hits US$20.
 
 ## How do I get started?
 Each model vendor has a program called a "harness" which enables their models to work with programs and data on your local machine.  Anthropic's is **Claude Code**, OpenAI's is **Codex** (although Codex is now being merged with their general ChatGPT app and I'm unclear what the final branding is going to be), and SpaceX AI's is **Grok Build**.  Installation instructions are available on each vendor's site, but typically there's a command line to copy/paste for macOS or Linux and an installer for Windows.
@@ -53,6 +53,12 @@ You know what you want to do, but you're not sure how to do it?  The model can g
 You've got working code, but it's in the wrong form to move forward.  Or you realize you've made a grave architectural mistake but now there's a few thousand lines of working code.  The model is happy to do it for you and you can do something less likely to aggravate your repetitive strain injury.
 
 **Sample prompt:** *For asc_easc_device, move the FIFO popping and status update logic from sound_stream_update() to a new function called pop_fifo().*
+
+### Understanding a subsystem
+
+You don't quite understand how something works in MAME and you want to get your head around it before attempting to change it.
+
+**Sample prompt:** *Write an explanation of how inputs work in MAME.*
 
 ## Things I've learned
 - You get better results on multi-step tasks by asking the model to create a plan for what you want first.  That also gives you an opportunity to review the plan and issue corrections and clarifications.

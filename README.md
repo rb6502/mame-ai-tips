@@ -1,5 +1,5 @@
 # Tips for using AI to help with MAME development
-Hints and tips for using AI assistance with MAME.  Version 3.6, August 19, 2026.
+Hints and tips for using AI assistance with MAME.  Version 3.7, August 31, 2026.
 
 **WARNING**: so-called "vibe coding" is *not acceptable* for MAME.  You're welcome to use it for personal things for yourself, but for doing actual submittable MAME work you need some experience with programming and the ability to understand and edit what the AI models output.
 
@@ -10,7 +10,7 @@ One stylistic note: when typing prompts, I bracket file and pathnames with backt
 ## What models can I use?
 Any of the current frontier or near-frontier models have given good results.  I lack the local hardware to effectively run any of the high-end open weights models so my suggestions will stick to the well-known closed ones: **Sonnet 5**, **Opus 5**, or **Fable 5** from [Anthropic](https://claude.ai/), **GPT-5.6** from [OpenAI](https://openai.com/), or **Grok 4.6** from [SpaceX AI](https://x.ai/).  I have personally done useful MAME work with each of the listed models.
 
-Note that the version listed is important!  **Opus 4.8** can and has done useful MAME work but is much more likely to go haywire.  **GPT 4.5** is when GPT started getting really good for code, and 4.6 is quite a bit better in my testing.  Similarly, **Grok 4.5** is the first version that's able to do good quality MAME work, and 4.6 is a significant upgrade over that.
+Note that the version listed is important!  **Opus 4.8** can and has done useful MAME work but is much more likely to go haywire.  **GPT 5.5** is when GPT started getting really good for code, and 5.6 is quite a bit better in my testing.  Similarly, **Grok 4.5** is the first version that's able to do good quality MAME work, and 4.6 is a significant upgrade over that.
 
 I plan to evaluate **Kimi K3** from [Moonshot AI](https://moonshot.ai/) as soon as I make it through their waiting list.  As advertised it has similar tradeoffs to **Grok 4.5**: not at the latest frontier capability, but substantially less expensive per token.
 

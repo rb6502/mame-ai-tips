@@ -1,5 +1,5 @@
 # Tips for using AI to help with MAME development
-Hints and tips for using AI assistance with MAME.  Version 3.7, August 31, 2026.
+Hints and tips for using AI assistance with MAME.  Version 3.8, August 31, 2026.
 
 **WARNING**: so-called "vibe coding" is *not acceptable* for MAME.  You're welcome to use it for personal things for yourself, but for doing actual submittable MAME work you need some experience with programming and the ability to understand and edit what the AI models output.
 
@@ -59,6 +59,12 @@ You've got working code, but it's in the wrong form to move forward.  Or you rea
 You don't quite understand how something works in MAME and you want to get your head around it before attempting to change it.
 
 **Sample prompt:** *Write an explanation of how inputs work in MAME.*
+
+### Getting a head start on reverse-engineering hardware
+
+You're working on something where the CPU is well known and it's up and running the code, but the machine in question relies on some custom chip(s) whose functionality is unknown and undocumented.  Have the model take a swing at it while you catch up on YouTube videos.
+
+**Actual prompt:** *I'm working on trying to get at least basic emulation of the Alesis QS7 and related synthesizers working.  I now have wave ROM dumps and a stub for the SG-2 PCM playback chip that allows the wave ROM checksum to pass, but nothing for actual playback.  Take a look at e.g. `./mame alesqs7` and the stub sg2.cpp device, and see what you can figure out about how PCM playback is actually done.  MIDI In is hooked up so -midiin with a .MID file should be a valid way to see how it behaves.*
 
 ## Things I've learned
 - You get better results on multi-step tasks by asking the model to create a plan for what you want first.  That also gives you an opportunity to review the plan and issue corrections and clarifications.

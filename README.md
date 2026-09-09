@@ -1,20 +1,20 @@
 # Tips for using AI to help with MAME development
-Hints and tips for using AI assistance with MAME.  Version 3.8, August 31, 2026.
+Hints and tips for using AI assistance with MAME.  Version 4.0, September 9, 2026.
 
-**WARNING**: so-called "vibe coding" is *not acceptable* for MAME.  You're welcome to use it for personal things for yourself, but for doing actual submittable MAME work you need some experience with programming and the ability to understand and edit what the AI models output.
+**WARNING**: so-called "vibe coding" is *not acceptable* for MAME.  You're welcome to use it for personal things for yourself, but for doing actual submittable MAME work you need some experience with programming and the ability to understand and edit what the AI models output.  I do let the models generate code, but I always go over it line-by-line, ask the model to fix large-scale things I don't like, and frequently make smaller edits (e.g. variable naming and other stylistic things) myself.  I don't submit anything I couldn't have written myself given sufficient time.
 
 Also, please write the submission comment yourself.  You can restate things the AI model said, but the AI model spew is 10 times more effort for whoever is reviewing your submission.  And follow MAME's [official AI guidelines](https://docs.mamedev.org/contributing/index.html).  (They're at the bottom of that page).
 
 One stylistic note: when typing prompts, I bracket file and pathnames with backticks so that names with spaces in them aren't ambiguous.  Here in Markdown land that translates to the `code style` with a gray background.  I found that appropriate so I've kept it.
 
 ## What models can I use?
-Any of the current frontier or near-frontier models have given good results.  I lack the local hardware to effectively run any of the high-end open weights models so my suggestions will stick to the well-known closed ones: **Sonnet 5**, **Opus 5**, or **Fable 5** from [Anthropic](https://claude.ai/), **GPT-5.6** from [OpenAI](https://openai.com/), or **Grok 4.6** from [SpaceX AI](https://x.ai/).  I have personally done useful MAME work with each of the listed models.
+Any of the current frontier or near-frontier models have given good results.  I lack the local hardware to effectively run any of the high-end open weights models so my suggestions will stick to the well-known closed ones: **Sonnet 5**, **Opus 5**, or **Fable 5** from [Anthropic](https://claude.ai/), **GPT-6** and **GPT-5.6** from [OpenAI](https://openai.com/), or **Grok 4.6** from [SpaceX AI](https://x.ai/).  I have personally done useful MAME work with each of the listed models.
 
-Note that the version listed is important!  **Opus 4.8** can and has done useful MAME work but is much more likely to go haywire.  **GPT 5.5** is when GPT started getting really good for code, and 5.6 is quite a bit better in my testing.  Similarly, **Grok 4.5** is the first version that's able to do good quality MAME work, and 4.6 is a significant upgrade over that.
+Note that the version listed is important!  **Opus 4.8** can and has done useful MAME work but is much more likely to go haywire and need your guidance.  **GPT 5.5** is when GPT started getting really good for code, 5.6 is quite a bit better in my testing, and 6 has cracked some problems we thought were impossible.  Similarly, **Grok 4.5** is the first version that's able to do good quality MAME work, and 4.6 is a significant upgrade over that.
 
 I plan to evaluate **Kimi K3** from [Moonshot AI](https://moonshot.ai/) as soon as I make it through their waiting list.  As advertised it has similar tradeoffs to **Grok 4.5**: not at the latest frontier capability, but substantially less expensive per token.
 
-I am currently evaluating **Muse Spark** from [Meta](https://developer.meta.com/ai/products/muse-code/).  My early verdict: it's not as good as the latest and greatest models but it's definitely capable, and very cheap.  You will definitely need to hold it's hand a lot more, but it's a good and relatively inexpensive way to dip your toes into AI assisted development.  I appreciate the pay-as-you-go setup: you can see a live accounting of how much you owe and it doesn't actually bill you until it hits US$20.
+I am currently evaluating **Muse Spark 1.3** from [Meta](https://developer.meta.com/ai/products/muse-code/).  My current verdict: it's not as good as the latest and greatest models but it's definitely capable, and very cheap.  You will definitely need to hold it's hand a lot more, but it's a good and relatively inexpensive way to dip your toes into AI assisted development.  I appreciate the pay-as-you-go setup: you can see a live accounting of how much you owe and it doesn't actually bill you until it hits US$20.
 
 ## How do I get started?
 Each model vendor has a program called a "harness" which enables their models to work with programs and data on your local machine.  Anthropic's is **Claude Code**, OpenAI's is **Codex** (although Codex is now being merged with their general ChatGPT app and I'm unclear what the final branding is going to be), and SpaceX AI's is **Grok Build**.  Installation instructions are available on each vendor's site, but typically there's a command line to copy/paste for macOS or Linux and an installer for Windows.
@@ -23,6 +23,12 @@ You will also need a paid account to do any kind of real work.  The vendors have
 
 ## What can I do with AI and MAME?
 Here are some things I've used AI models for with MAME development.  Prompts are similar to what I really used to do these things, but not necessarily exact.  In some cases the prompts reflect knowledge I didn't have when I did that actual thing.
+
+### Getting up to speed on a MAME device or subsystem
+
+You know C/C++ and/or you know the hardware being emulated, but MAME internals are a mystery?  The model can explain things to you and you can ask all of the follow-up questions you need.
+
+**Sample prompts:** *Explain how to write a MAME screen_update() function* or *Explain how the floppy subsystem works* or *Tell me how MAME's NCR53C94 device handles SCSI device selection*.
 
 ### Bug tracing
 
@@ -53,12 +59,6 @@ You know what you want to do, but you're not sure how to do it?  The model can g
 You've got working code, but it's in the wrong form to move forward.  Or you realize you've made a grave architectural mistake but now there's a few thousand lines of working code.  The model is happy to do it for you and you can do something less likely to aggravate your repetitive strain injury.
 
 **Sample prompt:** *For asc_easc_device, move the FIFO popping and status update logic from sound_stream_update() to a new function called pop_fifo().*
-
-### Understanding a subsystem
-
-You don't quite understand how something works in MAME and you want to get your head around it before attempting to change it.
-
-**Sample prompt:** *Write an explanation of how inputs work in MAME.*
 
 ### Getting a head start on reverse-engineering hardware
 

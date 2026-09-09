@@ -1,7 +1,7 @@
 # Tips for using AI to help with MAME development
-Hints and tips for using AI assistance with MAME.  Version 4.0, September 9, 2026.
+Hints and tips for using AI assistance with MAME.  Version 4.0a, September 9, 2026.
 
-**WARNING**: so-called "vibe coding" is *not acceptable* for MAME.  You're welcome to use it for personal things for yourself, but for doing actual submittable MAME work you need some experience with programming and the ability to understand and edit what the AI models output.  I do let the models generate code, but I always go over it line-by-line, ask the model to fix large-scale things I don't like, and frequently make smaller edits (e.g. variable naming and other stylistic things) myself.  I don't submit anything I couldn't have written myself given sufficient time.
+**WARNING**: so-called "vibe coding" is *not acceptable* for MAME.  You're welcome to use it for personal things for yourself, but for doing actual submittable MAME work you need some experience with programming and the ability to understand and edit what the AI models output.  I do let the models generate code, but I always go over it line-by-line, ask the model to fix large-scale things I don't like, and make dozens or hundreds of smaller edits (e.g. variable naming and other stylistic things) myself.  I don't submit anything I couldn't have written myself given sufficient time.
 
 Also, please write the submission comment yourself.  You can restate things the AI model said, but the AI model spew is 10 times more effort for whoever is reviewing your submission.  And follow MAME's [official AI guidelines](https://docs.mamedev.org/contributing/index.html).  (They're at the bottom of that page).
 

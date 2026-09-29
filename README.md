@@ -48,6 +48,8 @@ Know that there are bugs in a MAME device or component but not sure where to loo
 
 **Sample prompt:** *Please verify the operation of MAME's M680x0 FPU emulation in `src/devices/cpu/m68000`.  Use the Motorola manuals for reference.  The 68881 manual is at `~/Documents/m68k/68881_Users_Guide.pdf`, the 68030 manual is at `~/Documents/m68k/MC68030_Users_Manual.pdf`, and the 68040 manual is at `~/Documents/m68k/MC68040_Users_Manual.pdf`.  Create a report of possible issues found.*
 
+Many models can read diagrams in said PDF's and pasted images, including hardware schematics.
+
 ### Directional guidance
 
 You know what you want to do, but you're not sure how to do it?  The model can give some ideas.
@@ -69,13 +71,14 @@ You're working on something where the CPU is well known and it's up and running 
 ## Things I've learned
 - You get better results on multi-step tasks by asking the model to create a plan for what you want first.  That also gives you an opportunity to review the plan and issue corrections and clarifications.
 - When sending the model on a bug hunt, not every change it makes will turn out to be important once you get to success.  It's always a good idea to try reverting each of the changes afterwards to find out what was important.  The Mac II A/UX patch I was sent originally was much, much more invasive than what actually landed.  (Admittedly, the one to macscsi.cpp was more involved but it also fixed A/UX on all 5380 machines).
-- Models can and do get off on a tangent that's not useful towards solving your problem, especially when performing bug tracing.  Don't be afraid to hit Esc to stop them and offer a correction.  Codex has the "nudge" feature for exactly this reason.
+- Models can and do get off on a tangent that's not useful towards solving your problem, especially when performing bug tracing.  Don't be afraid to hit Esc to stop them and offer a correction.  Codex has the "nudge" feature for exactly this reason.  You can also ask it to explain why it did what it did - remember to say that you are asking for clarification and not telling it is wrong.
 - The longer a session runs and the more context builds up, the dumber the model gets.  Don't be afraid to ask it to create a handoff document, and then use that handoff document to seed a new, clean session that will "think more clearly".
 - When you are having the model generate code, tell it in advance what your preferred bracing style is (GNU, or Allman, or "follow the style of the rest of the file").
 - Don't be afraid to ruthlessly edit the comments it adds.  Models output a paragraph where a sentence will do and a sentence in cases where even a junior programmer can see what's happening.  Including something like "Keep comments limited to tricky or unclear algorithms, and don't justify the changes" in your prompt can help too.
 - If you're in a work tree that you don't want to submit directly from, tell it to not do any git write operations.
+- Models apologize a lot and use a lot of words - this can become very annoying!  You can tell it to never apologize, and be short and concise.
 
 ## When submitting to MAME
-- Take a final pass over the code.  Make sure comments are useful and not just spewing.  Anthropic's models in particular love to basically apologize on bended knee for every line changed, and that's unnecessary and off-putting.
+- Take a final pass over the code.  Make sure comments are useful and not just spewing.  Anthropic's models in particular love to basically apologize on bended knee for every line changed, and that's unnecessary and off-putting.   You can always tell it to rewrite comments to be short and concise, in the style of the project.
 - Write the pull request description yourself.  At the very least, take a machete to whatever your model generated because it's probably excessive.  A bunch of show-and-tell in the description is not necessary (if you include a table, you're probably doing it wrong).  Just tell us what changed and what it fixed.  MAME's historical readme.txt files provide a good idea of what good taste looks like in pull request descriptions.
 - Don't forget your AI usage disclosure.

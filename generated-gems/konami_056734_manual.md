@@ -549,6 +549,42 @@ Salamander 2 converts object lists with a priority histogram, and Sexy
 Parodius adds an after-image effect by re-reading the previous frame's
 list from the other buffer.
 
+### 6.9 Sexy Parodius: what the host sends
+
+Observed in MAME 0.289 with a Lua tap on writes to `0xCC0000` and on CPU
+accesses to work RAM `0xC00000`–`0xC003FF` (stage 1 in play, frames
+2600–2602 from power-on):
+
+- Once, at start-up: RESET (command 5, reply buffer `0xC00034`), then
+  LOAD (command 2) of the image at host `0x2FBA11`.
+- Every frame, one RUN (command 1). The packet moves through work RAM
+  (`0xC002D0`, `0xC002A4`, `0xC00278`, …, 0x2C bytes apart); argument 1
+  is always `0xC00058`. The host library writes the four parameters
+  there first (68020 PC `0x288AAC`):
+
+  | Frame | p1 | p2 | p3 | p4 |
+  |---|---|---|---|---|
+  | 2600 | 2 | 0 | `0xD20000` | `0x2ED` |
+  | 2601 | 2 | 0 | `0xD21000` | `0x2EE` |
+  | 2602 | 2 | 0 | `0xD20000` | `0x2EF` |
+
+  p3 alternates between the two halves of sprite RAM (the double buffer
+  of §6.8, here in the third parameter rather than the second) and p4
+  counts frames.
+- After each RUN the host writes zero to the mailbox twice (keep-alives)
+  and reads the packet's state through the library.
+
+MAME's high-level emulation (`konamigx.cpp`, `sexyparo_esc`) turns every
+RUN into `generate_sprites(0xC00604, 0xD20000, 0xFC)`: it ignores all
+four parameters, always writes the first half of sprite RAM, and never
+runs the uploaded program. On the PCB, Sexy Parodius shows snow (stage 1),
+rain and stars drawn over the other sprites; MAME and an FPGA
+reimplementation that follows it show none of them, and at those moments
+none is present in work RAM's object table, in sprite RAM or in the
+tilemaps (checked from a save state taken on hardware during the snow).
+Whether the uploaded program generates these effects from p1 and the
+frame counter in p4 is not yet confirmed.
+
 ---
 
 ## 7. Annotated program: Daisu-Kiss sprite list generator

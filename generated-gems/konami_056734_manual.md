@@ -1040,10 +1040,24 @@ comparing the 527 code words between chips.
 | `dragoonj` | Dragoon Might | `5963` | B | `049DB8E5` | 4 7 9 3 14 8 6 13 5 0 15 1 11 12 2 10 |
 | `salmndr2` | Salamander 2 | `1EC6` | A | `B3F135B3` | 7 8 2 4 10 14 15 6 9 1 0 12 3 5 13 11 |
 | `sexyparo` | Sexy Parodius | `896A` | E | `1886AE1D` | 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 |
+| `rungun2`, `slamdnk2` | Run and Gun 2 / Slam Dunk 2 | `1593` | 0 | `6862ABCF` | 4 9 12 3 5 15 8 0 7 14 1 10 11 6 2 13 |
 
-Only the sets named were checked; clones were not. `s10[31:16]` and
-`s11[31:28]` are not used by the ciphers; `s11[31:28]` is the boot
-code's identity check (§6.2). The upper half of `s10` is not known.
+Every set in MAME 0.289's `konamigx.cpp` was checked. Clones carry their
+parent's chip: `crzcross` (puzldama's), `mtwinbee` (tbyahhoo's),
+`sexyparoa`, `dragoona`, `salmndr2a`; their program images sit at other
+addresses (`0x2FE67B`, `0x2FB883`, `0x251C78`, `0x234E50`) and decrypt with
+the same key. `fantjour` and `fantjoura` carry gokuparo's kernel (key
+`B821AB1D`) and no program. The other sets have no kernel at `0x200A6C`:
+`le2` and its clones, `ggreats2`, `opengolf`, `opengolf2`, `racinfrc`,
+`racinfrcu`, `rushhero`, `soccerss` and clones, `vsnetscr` and clones,
+`winspike` and clones, `sexyparoebl`.
+
+Run and Gun 2's program (`prog_rungun2.txt`; Slam Dunk 2's is the same at
+`0x254F40`) copies blocks of bytes, the routine chosen by the low two bits
+of the fourth parameter.
+
+`s10[31:16]` and `s11[31:28]` are not used by the ciphers; `s11[31:28]` is
+the boot code's identity check (§6.2). The upper half of `s10` is not known.
 
 ### 8.5 Running the chip
 

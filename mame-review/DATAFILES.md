@@ -34,9 +34,9 @@ An item represents the **original media**, not a particular dump: prefer one fil
 ## Layouts and translations
 
 ### O-1 Layouts (`*.lay`) · Tidy
-Layouts are written for humans: indented to show structure, SVG with sane coordinates and `viewBox`, no nested `<svg>`, transforms or CSS `style=`. Shapes are drawn in white and coloured per instance; repeated elements use `<repeat>`; element and quad counts stay low ("MAME still thinks immediate mode is cool"). Only controls that physically exist are drawn, with no brand logos, and a device's layout is attached to the device. Each layout has a CC0 license comment.
-- Grep: `<svg[^>]*>[\s\S]*<svg`; `style=`; `transform=`; long high-precision `d="` paths; runs of near-identical `<element ref=` lines; missing `license:CC0`
-- Source: #14781, #14049, #15697, #11747
+Layouts are written for humans: indented to show structure, SVG with sane coordinates and `viewBox`, no nested `<svg>`, transforms or CSS `style=`. Shapes are drawn in white and coloured per instance; repeated elements use `<repeat>`; element and quad counts stay low ("MAME still thinks immediate mode is cool"). Only controls that physically exist are drawn, with no brand logos, and a device's layout is attached to the device. Each layout has a CC0 license comment. Text is written in the characters themselves (`£1`), not numeric character references (`&#xa3;1`), for anything up to U+052F — the same cutoff as C++ literals (I-3); characters beyond it (card suits, `&#x2660;`) may stay as references, and `<`, `>` and `&` keep their XML escapes.
+- Grep: `<svg[^>]*>[\s\S]*<svg`; `style=`; `transform=`; long high-precision `d="` paths; runs of near-identical `<element ref=` lines; `&#x0*(?!3[cCeE];)[0-9a-fA-F]{2,3};`; missing `license:CC0`
+- Source: 272ed7c2767; #14781, #14049, #15697, #11747
 
 ### O-2 Translations and UI text · Tidy
 `language/*/*.po` changes use correct terminology in the target language, not literal translations, and don't reflow the file. UI behaviour and colours stay consistent across menus and don't assume a dark theme.

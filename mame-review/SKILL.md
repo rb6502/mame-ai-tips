@@ -48,6 +48,8 @@ The areas decide which rule files step 4 reads:
 | input ports, ROM definitions, or `GAME`/`SYST`/`CONS`/`COMP` lines | [SYSTEMS.md](SYSTEMS.md) |
 | software lists (`hash/*.xml`), layouts (`*.lay`), translations (`language/`) | [DATAFILES.md](DATAFILES.md) |
 
+Plugins (`plugins/`) get the srcclean check from step 3 (it handles Lua) and SUBMISSION.md; Lua idiom isn't reviewed — hoisting library functions into locals, as `plugins/data` does, is an optimisation core developers make themselves, not one they ask contributors for.
+
 [SUBMISSION.md](SUBMISSION.md) is read in step 6 whatever the change touches.
 
 Done when every touched file has an area and a style line, and the rule files to read are listed.

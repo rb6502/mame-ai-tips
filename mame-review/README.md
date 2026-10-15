@@ -1,4 +1,4 @@
-# mame-review skill v1.0 (Sep. 27, 2026)
+# mame-review skill v1.1 (Oct. 14, 2026)
 
 This skill allows your agent to do an in-depth review of either a Github pull request or local files.  It's based on MAME's published
 C++ coding standards plus years of coordinator Vas Crabb's PR reviews and "Tidy" changelists, so it should represent the actual state of

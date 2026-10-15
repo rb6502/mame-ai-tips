@@ -1,0 +1,49 @@
+; Konami 056734 (ESC). Canonical encoding (konami_056734_manual.md section 2.4).
+; Generated from the Taisen Tokkae-dama ROM (MAME set tokkae) with esccipher.py and escdis.py.
+; Program image at host 0x2E85C4: A=46 B=0 C=16 D=44 E=0 F=45 G=0x802F salt 0x263A96A6 checksum 0xB8DD
+   0 40150002  push r5
+   1 40110002  push r4
+   2 402101c3  ld(l) r4, [r1]
+   3 000ac440  li r5, #0xD20000
+   4 101300c0  li r28, #0x40
+   5 402004c7  ld r20, [r4]
+   6 412404c7  ld r21, [r4+4]
+   7 422804c7  ld r22, [r4+8]
+   8 432c04c7  ld r23, [r4+12]
+   9 842004c7  ld r24, [r4+16]
+  10 852404c7  ld r25, [r4+20]
+  11 862804c7  ld r26, [r4+24]
+  12 872c04c7  ld r27, [r4+28]
+  13 403005c7  st r20, [r5]
+  14 413405c7  st r21, [r5+4]
+  15 423805c7  st r22, [r5+8]
+  16 433c05c7  st r23, [r5+12]
+  17 843005c7  st r24, [r5+16]
+  18 853405c7  st r25, [r5+20]
+  19 863805c7  st r26, [r5+24]
+  20 873c05c7  st r27, [r5+28]
+  21 482004c7  ld r20, [r4+32]
+  22 492404c7  ld r21, [r4+36]
+  23 4a2804c7  ld r22, [r4+40]
+  24 4b2c04c7  ld r23, [r4+44]
+  25 8c2004c7  ld r24, [r4+48]
+  26 8d2404c7  ld r25, [r4+52]
+  27 8e2804c7  ld r26, [r4+56]
+  28 8f2c04c7  ld r27, [r4+60]
+  29 483005c7  st r20, [r5+32]
+  30 493405c7  st r21, [r5+36]
+  31 4a3805c7  st r22, [r5+40]
+  32 4b3c05c7  st r23, [r5+44]
+  33 8c3005c7  st r24, [r5+48]
+  34 8d3405c7  st r25, [r5+52]
+  35 8e3805c7  st r26, [r5+56]
+  36 8f3c05c7  st r27, [r5+60]
+  37 50130003  addi r4, #0x40
+  38 50170003  addi r5, #0x40
+  39 c0538443  subi.h r28, #0x1
+  40 3738bb3c  bne    5
+  41 40310002  pop r4
+  42 40350002  pop r5
+  43 c01d0c42  ret s31
+  44 c01d0c42  ret s31
+  45 c01d0c42  ret s31

@@ -99,9 +99,10 @@ the 32-bit word plus a 32-bit XOR constant. Code is therefore stored in
 local memory (and in ROM) in the scrambled form for that chip, and
 appears in plaintext only inside the fetch unit. Data words are not
 descrambled. The bit numbering used in this document is a canonical
-reference order (one title's storage order with its constant removed);
-the order on the chip's internal bus is not observable and does not
-matter to software.
+reference order: Sexy Parodius's storage order with its constant
+(`0x1886AE1D`) removed. The constants and lane maps of the other chips
+are in §8.4. The order on the chip's internal bus is not observable and
+does not matter to software.
 
 ---
 
@@ -228,6 +229,7 @@ in words for local memory.
 | `10022` | `mul rA, rB` | s8 = rA × rB (32 × 32, low 32 bits) |
 | `10222` | `mul.h rA, rB` | s8 = rA[15:0] × rB[15:0], signed 16 × 16 → 32 |
 | `30222` | `div.h rA, rB` | s8 = rA[15:0] ÷ rB[15:0], unsigned; rA unchanged |
+| `30002` | `neg rA, rB` **(?)** | a one-operand transform of rB into rA. Used only by the boot code's RAM test (boot words 173 and 194), as `neg r31, r31; subi r31, #1` both when filling and when verifying, so any one-to-one transform passes the test and the operation cannot be identified from it. Negation (making the pair a complement) is a guess. |
 
 Shifts and rotates operate on the low 8/16/32 bits selected by the size
 and set Z and N. All shifts are by one bit; multi-bit shifts are written
@@ -423,7 +425,7 @@ host passes only its address.
 | +0x12 | checksum | 16-bit sum of all halfwords of the stored (decrypted) code and data words |
 | +0x14 | salt | 32 bits mixed into the program key |
 | +0x18 | code section | A words; encrypted unless G bit 12 is set; stored scrambled for the chip's fetch unit |
-| +0x18 + 4A | data section | B words; plain data, not scrambled |
+| +0x18 + 4A | data section | B words; encrypted like the code section (and with the cipher restarted), but not scrambled |
 
 The code section ends with the entry points D and F, each a bare `ret`
 in the shipped images; when the code word count would otherwise be odd a
@@ -435,7 +437,8 @@ The kernel image is decrypted by the boot code with a stream cipher;
 program images are decrypted by the kernel with a block cipher keyed from
 the chip secret (`s10`), the configuration nibble in `s11`, the flags word
 and the salt. Both are per-title: the same program encrypted for another
-chip would fail the checksum and never run.
+chip would fail the checksum and never run. Both ciphers and every
+title's constants are in §8.
 
 ### 6.4 The kernel
 
@@ -548,6 +551,83 @@ computes `p2 + ((byte[p1+2] & 7) << 3)` and the 68020 recomputes it,
 Salamander 2 converts object lists with a priority histogram, and Sexy
 Parodius adds an after-image effect by re-reading the previous frame's
 list from the other buffer.
+
+### 6.9 Sexy Parodius: what the host sends
+
+Observed in MAME 0.289 with a Lua tap on writes to `0xCC0000` and on CPU
+accesses to work RAM `0xC00000`–`0xC003FF` (stage 1 in play, frames
+2600–2602 from power-on):
+
+- Once, at start-up: RESET (command 5, reply buffer `0xC00034`), then
+  LOAD (command 2) of the image at host `0x2FBA11`.
+- Every frame, one RUN (command 1). The packet moves through work RAM
+  (`0xC002D0`, `0xC002A4`, `0xC00278`, …, 0x2C bytes apart); argument 1
+  is always `0xC00058`. The host library writes the four parameters
+  there first (68020 PC `0x288AAC`):
+
+  | Frame | p1 | p2 | p3 | p4 |
+  |---|---|---|---|---|
+  | 2600 | 2 | 0 | `0xD20000` | `0x2ED` |
+  | 2601 | 2 | 0 | `0xD21000` | `0x2EE` |
+  | 2602 | 2 | 0 | `0xD20000` | `0x2EF` |
+
+  p3 alternates between the two halves of sprite RAM (the double buffer
+  of §6.8, here in the third parameter rather than the second) and p4
+  counts frames.
+- After each RUN the host writes zero to the mailbox twice (keep-alives)
+  and reads the packet's state through the library.
+
+MAME's high-level emulation (`konamigx.cpp`, `sexyparo_esc`) turns every
+RUN into `generate_sprites(0xC00604, 0xD20000, 0xFC)`: it ignores all
+four parameters, always writes the first half of sprite RAM, and never
+runs the uploaded program. On the PCB, Sexy Parodius shows snow (stage 1),
+rain and stars drawn over the other sprites; MAME and an FPGA
+reimplementation that follows it show none of them, and at those moments
+none is present in work RAM's object table, in sprite RAM or in the
+tilemaps (checked from a save state taken on hardware during the snow).
+
+The decrypted program (§8, `konami_056734/prog_sexyparo.txt`) generates
+them. Words 0–230 are the Daisu-Kiss sprite builder of §7 with the object
+table at `0xC00604` (248 entries) and the destination taken from p3. Words
+231–242 then dispatch on p1 to an overlay that fills the rest of the list,
+padding with index-only entries up to its first slot:
+
+| p1 | Words | Slots | Effect | Word 0 / colour | Tiles |
+|---|---|---|---|---|---|
+| 0 | 243 | — | none: pad to 256 | | |
+| 1 | 249 | `0xE0`–`0xFF` | starfield | `0x8000` / `0xE6` | data 8–11 by `slot & 3` |
+| 2 | 314 | `0xE0`–`0xFF` | snow | `0x8000` / `0xA6` | data 108–139, 32 frames of a tumbling flake |
+| 3 | 391 | `0xE0`–`0xFF` | rain | `0xA400` / `0xC4` | `0x12B5` |
+| 4 | 451 | `0xC0`–`0xFF` | particles at object positions | `0xA000` / `0x66` | data 140–147 |
+
+Every overlay keeps its state in the previous frame's list, read from the
+other half of sprite RAM (`p3 ^ 0x1000`): a slot whose previous tile is
+the one the overlay would have drawn there is still alive, and its
+position is carried on (for the starfield and snow, x as 16.16 with the
+fraction in the unused word +0xE). A dead slot respawns when `(p4 >> k) + slot` is a multiple of 32
+(k = 3 for snow, 2 for rain), so one particle starts every few frames.
+Motion is skipped while p2 is non-zero (pause):
+
+- **Starfield:** x starts at data 12–43 (`0x18`–`0x108`), y at data 76–107;
+  x moves left by data 44–75 (−1/16 to −1/2 pixel per frame).
+- **Snow:** spawns at y = 0, x = data 12–43; y += 1, x −= 1/2 per frame;
+  the tile is `data[108 + ((y + slot) & 31)]`.
+- **Rain:** spawns at y = 0, x = data 12–43; y += 8, x −= 2 + `[r1+4]`.
+- **Particles:** for each object from `data[148 + (p4 & 3)]` (`0xC00E04`,
+  `0xC03B04`, `0xC06E04`, `0xC06E04`) to `0xC0DE04`, a slot spawns at the
+  object's position (+4 in x) when `slot × 8 ≡ p4 & 0xF8`; it then moves by
+  −(p4 & 1) in y and −`[r1+4]` in x, and its tile is
+  `data[140 + ((y >> 2) + slot) & 7]` (index 0 ends it).
+
+In every case x wraps by +0x120 when it goes negative. `[r1+4]` is the
+word after the four parameters in the handle record (§6.4); where its
+value comes from is not known.
+
+The Saturn port of the game (Sexy Parodius, Japan) draws the same four
+overlays in SH-2 code: the VDP1 list builder at `0x0602231C` dispatches on
+the same 0–4 value to routines at `0x06022594` (starfield), `0x06022758`
+(snow), `0x06022978` and `0x06022B34`, and its snow spawn table at
+`0x06080D54` holds the same 32 values as data 12–43.
 
 ---
 
@@ -855,3 +935,141 @@ Points worth noticing in this listing:
 - The output index rather than the priority goes into word 0 (207), and
   x carries a fixed +20 (51 and 163) that the game's sprite offset
   registers absorb.
+
+---
+
+## 8. Encryption and per-chip constants
+
+The boot code is only scrambled (§2.4), so it can be read once a chip's
+XOR constant and lane map are known. It holds the kernel's stream cipher
+and key derivation; the decrypted kernel holds the program cipher. Every
+kernel and program image of the nine titles below decrypts with these
+and passes its header checksum, and the Daisu-Kiss program decrypts to
+the listing of §7 word for word. Listings are in
+[`konami_056734/`](konami_056734/): `boot.txt`, `kernel.txt` and
+`prog_<set>.txt` (canonical encoding), with `esccipher.py` (both ciphers
+and the constants table) and `escdis.py` (the disassembler that produced
+them).
+
+### 8.1 Kernel key and stream cipher (boot words 335–383)
+
+```
+key = (s11[27:24] * 0x01010101) ^ 0x36AE2592 ^ (s10[15:0] * 0x00010001)
+
+a = key ^ 0x6E8EF8FC;  b = key
+for each 32-bit word w (code section, then data section; both start from key):
+    plain = w ^ a
+    a = a + b
+    b = b ^ rot16(a)
+```
+
+The checksum of §6.3 is taken over the plain words. Because `s10` and the
+nibble only enter as this XOR, 16 different (`s10`, nibble) pairs give
+the same kernel key; the program key below separates them.
+
+### 8.2 Program key (kernel words 875–925)
+
+```
+k0 = s11[27:24] << 28 | (G & 0xFFF) << 16 | s10[15:0]
+k1 = k0 ^ salt
+k2 = (G >> 13) << 3 | ((E ^ s10) & 3)            (8 bits)
+```
+
+### 8.3 Program cipher (kernel words 1387–1665)
+
+A FEAL-8 variant on 64-bit blocks, each block two big-endian 32-bit words
+(L, R) of the image; the data section restarts from the same key. With
+`S0(a,b) = rol2((a+b) mod 256)` and `S1(a,b) = rol2((a+b+1) mod 256)`:
+
+- **Key schedule:** FEAL's: A = k0, B = k1, D = 0; eight times
+  `B' = fk(A, B ^ D)`, then D = A, A = B, B = B'; each B' gives two 16-bit
+  subkeys, high half first: K0…K15.
+- **Rounds:** `(k2 >> 2) & 6` rounds, or 8 when that is 0 (every shipped
+  image has G bits 15:13 = 4, so 8).
+- **Block:** `R ^= K1:K0; L ^= K3:K2; R ^= L`; per round
+  `(L, R) = (R, L ^ f(R, K[4 + r]))`; then `L ^= R; L ^= K13:K12;
+  R ^= K15:K14` (for 8 rounds); the output is (R, L).
+- **Round function** `f(a, k)`, chosen by `k2 & 3`; a0…a3 are the bytes
+  of a (a0 most significant), b0/b1 the high/low byte of the subkey, and
+  the result is f0…f3:
+
+  | `k2 & 3` | x | y | then |
+  |---|---|---|---|
+  | 0 (FEAL's f) | a0^a1^b0 | a2^a3^b1 | f1=S1(x,y) f2=S0(y,f1) f0=S0(a0,f1) f3=S1(a3,f2) |
+  | 1 | a0^a2^b0 | a1^a3^b1 | f2=S1(x,y) f1=S0(y,f2) f0=S0(a0,f2) f3=S1(a3,f1) |
+  | 2 | a2^a3^b0 | a0^a1^b1 | f3=S1(x,y) f0=S0(y,f3) f2=S0(a2,f3) f1=S1(a1,f0) |
+  | 3 | a0^a1^b1 | a2^a3^b0 | f0=S1(x,y) f3=S0(y,f0) f1=S0(a1,f0) f2=S1(a2,f3) |
+
+- **Subkey update:** after every block, with o1/o2 the two output words,
+  two of these run in order, the first chosen by `m1 = (k2 ^ k0) & 3`, the
+  second by `m2 = ((k1 & 3) | 2) ^ m1` (16-bit arithmetic):
+
+  | m | update |
+  |---|---|
+  | 0 | `K[o1 & 15] ^= K[(o2 >> 16) & 15]` |
+  | 1 | `K[(o1 >> 16) & 15] += 1` |
+  | 2 | `K[(o2 >> 16) & 15] += K[o1 & 15]` |
+  | 3 | `K[(o2 >> 16) & 15] -= 1` |
+
+  So the same plaintext block never encrypts the same way twice in one
+  image.
+
+The routines in the kernel take the round function and the two updates
+by address from its data section (data 16–23).
+
+### 8.4 Per-chip constants
+
+`s10` and `s11[27:24]` are the only values per title that the ciphers
+need; they were found by searching the 2^16 kernel keys for the one
+matching the kernel checksum, then the 16 pairs it allows against the
+program checksum. The descrambler of §2.4 is given as the XOR constant
+and the lane map: canonical lane k is lane `map[k]` of
+`(stored word ^ XOR)`. Both come from the boot code, which is the same
+program on every chip: words 122–137 and 142–157 are sixteen no-ops each,
+so they hold the XOR constant itself, and the lane map follows from
+comparing the 527 code words between chips.
+
+| Set | Title | `s10[15:0]` | `s11[27:24]` | XOR | lane map (k = 0…15) |
+|---|---|---|---|---|---|
+| `puzldama` | Taisen Puzzle-dama / Crazy Cross | `5D32` | 3 | `91C2C6FB` | 11 8 12 9 4 2 5 6 10 3 7 13 14 0 1 15 |
+| `tokkae` | Taisen Tokkae-dama | `9E8E` | B | `6BFBB5B9` | 12 2 6 9 13 0 5 10 8 11 3 4 14 15 7 1 |
+| `tkmmpzdm` | Tokimeki Memorial Taisen Puzzle-dama | `4924` | C | `88600EF4` | 9 14 5 1 13 2 0 6 11 15 3 7 8 10 12 4 |
+| `daiskiss` | Daisu-Kiss | `89EE` | D | `39556CC0` | 9 12 1 0 6 10 3 15 7 14 2 13 4 5 8 11 |
+| `tbyahhoo` | Twin Bee Yahhoo! | `0424` | A | `DE78B8AE` | 15 4 12 2 3 13 11 1 5 8 10 0 6 14 7 9 |
+| `gokuparo` | Gokujou Parodius | `8D8C` | 3 | `2C3EA1C4` | 15 11 13 14 9 3 0 7 6 1 8 5 12 10 4 2 |
+| `dragoonj` | Dragoon Might | `5963` | B | `049DB8E5` | 4 7 9 3 14 8 6 13 5 0 15 1 11 12 2 10 |
+| `salmndr2` | Salamander 2 | `1EC6` | A | `B3F135B3` | 7 8 2 4 10 14 15 6 9 1 0 12 3 5 13 11 |
+| `sexyparo` | Sexy Parodius | `896A` | E | `1886AE1D` | 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 |
+| `rungun2`, `slamdnk2` | Run and Gun 2 / Slam Dunk 2 | `1593` | 0 | `6862ABCF` | 4 9 12 3 5 15 8 0 7 14 1 10 11 6 2 13 |
+
+Every set in MAME 0.289's `konamigx.cpp` was checked. Clones carry their
+parent's chip: `crzcross` (puzldama's), `mtwinbee` (tbyahhoo's),
+`sexyparoa`, `dragoona`, `salmndr2a`; their program images sit at other
+addresses (`0x2FE67B`, `0x2FB883`, `0x251C78`, `0x234E50`) and decrypt with
+the same key. `fantjour` and `fantjoura` carry gokuparo's kernel (key
+`B821AB1D`) and no program. The other sets have no kernel at `0x200A6C`:
+`le2` and its clones, `ggreats2`, `opengolf`, `opengolf2`, `racinfrc`,
+`racinfrcu`, `rushhero`, `soccerss` and clones, `vsnetscr` and clones,
+`winspike` and clones, `sexyparoebl`.
+
+Run and Gun 2's program (`prog_rungun2.txt`; Slam Dunk 2's is the same at
+`0x254F40`) copies blocks of bytes, the routine chosen by the low two bits
+of the fourth parameter.
+
+`s10[31:16]` and `s11[31:28]` are not used by the ciphers; `s11[31:28]` is
+the boot code's identity check (§6.2). The upper half of `s10` is not known.
+
+### 8.5 Running the chip
+
+An instruction-level model of the chip (this document's semantics, plus
+`neg` for `30002`) boots Sexy Parodius from reset to the kernel's
+mailbox wait in 1,834,459 instructions, given only: local memory loaded
+with the 601 boot words from `0x200104`, pc = 0, `s10` and `s11` as above
+(with `s11[31:28]` = 0, which passes the identity check), and the BIOS
+and game ROM on the host bus. The boot code passes its RAM tests and the
+BIOS checksum, decrypts the kernel and jumps to it. Fed the packets that
+MAME's 68020 writes (captured with a Lua tap), the kernel completes the
+init word, RESET (911 instructions), LOAD (287,128 instructions, most of
+them the decryption) and each RUN (about 6,800 instructions in the
+attract demo) with state END. What the internal boot ROM does before
+word 0 is not known; this setup is the simplest one that works.

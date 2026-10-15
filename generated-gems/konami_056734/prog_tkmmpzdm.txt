@@ -1,0 +1,119 @@
+; Konami 056734 (ESC). Canonical encoding (konami_056734_manual.md section 2.4).
+; Generated from the Tokimeki Memorial Taisen Puzzle-dama ROM (MAME set tkmmpzdm) with esccipher.py and escdis.py.
+; Program image at host 0x23F9AA: A=112 B=4 C=16 D=109 E=0 F=110 G=0x8077 salt 0xE5163025 checksum 0xE181
+   0 401d0002  push r7
+   1 40190002  push r6
+   2 40150002  push r5
+   3 40110002  push r4
+   4 402101c3  ld(l) r4, [r1]
+   5 406501c3  ld(l) r5, [r1+1]
+   6 40a901c3  ld(l) r6, [r1+2]
+   7 40ed81c3  ld(l).h r7, [r1+3]
+   8 40df8083  andi.h r7, #0x3
+   9 46128707  add.h r20, r7, r3
+  10 40138403  addi.h r20, #0x0
+  11 402104d7  ld(l) r20, [r20]
+  12 68128623  add.h r20, s2, r20
+  13 40118400  jsr r20
+  14 40310002  pop r4
+  15 40350002  pop r5
+  16 40390002  pop r6
+  17 403d0002  pop r7
+  18 c01d0c42  ret s31
+  19 402044c7  ld.b r20, [r4]
+  20 403045c7  st.b r20, [r5]
+  21 406044c7  ld.b r20, [r4+1]
+  22 407045c7  st.b r20, [r5+1]
+  23 40a044c7  ld.b r20, [r4+2]
+  24 40b045c7  st.b r20, [r5+2]
+  25 40e044c7  ld.b r20, [r4+3]
+  26 40f045c7  st.b r20, [r5+3]
+  27 412044c7  ld.b r20, [r4+4]
+  28 413045c7  st.b r20, [r5+4]
+  29 416044c7  ld.b r20, [r4+5]
+  30 417045c7  st.b r20, [r5+5]
+  31 41a044c7  ld.b r20, [r4+6]
+  32 41b045c7  st.b r20, [r5+6]
+  33 41e044c7  ld.b r20, [r4+7]
+  34 41f045c7  st.b r20, [r5+7]
+  35 422044c7  ld.b r20, [r4+8]
+  36 423045c7  st.b r20, [r5+8]
+  37 426044c7  ld.b r20, [r4+9]
+  38 427045c7  st.b r20, [r5+9]
+  39 42a044c7  ld.b r20, [r4+10]
+  40 42b045c7  st.b r20, [r5+10]
+  41 42e044c7  ld.b r20, [r4+11]
+  42 42f045c7  st.b r20, [r5+11]
+  43 432044c7  ld.b r20, [r4+12]
+  44 433045c7  st.b r20, [r5+12]
+  45 436044c7  ld.b r20, [r4+13]
+  46 437045c7  st.b r20, [r5+13]
+  47 43a044c7  ld.b r20, [r4+14]
+  48 43b045c7  st.b r20, [r5+14]
+  49 43e044c7  ld.b r20, [r4+15]
+  50 43f045c7  st.b r20, [r5+15]
+  51 44130003  addi r4, #0x10
+  52 44170003  addi r5, #0x10
+  53 441b0043  subi r6, #0x10
+  54 3718bbbc  bgt    19
+  55 c01d0c42  ret s31
+  56 402084c7  ld.h r20, [r4]
+  57 403085c7  st.h r20, [r5]
+  58 40a084c7  ld.h r20, [r4+2]
+  59 40b085c7  st.h r20, [r5+2]
+  60 412084c7  ld.h r20, [r4+4]
+  61 413085c7  st.h r20, [r5+4]
+  62 41a084c7  ld.h r20, [r4+6]
+  63 41b085c7  st.h r20, [r5+6]
+  64 422084c7  ld.h r20, [r4+8]
+  65 423085c7  st.h r20, [r5+8]
+  66 42a084c7  ld.h r20, [r4+10]
+  67 42b085c7  st.h r20, [r5+10]
+  68 432084c7  ld.h r20, [r4+12]
+  69 433085c7  st.h r20, [r5+12]
+  70 43a084c7  ld.h r20, [r4+14]
+  71 43b085c7  st.h r20, [r5+14]
+  72 44130003  addi r4, #0x10
+  73 44170003  addi r5, #0x10
+  74 441b0043  subi r6, #0x10
+  75 3b18bbbc  bgt    56
+  76 c01d0c42  ret s31
+  77 402004c7  ld r20, [r4]
+  78 403005c7  st r20, [r5]
+  79 412004c7  ld r20, [r4+4]
+  80 413005c7  st r20, [r5+4]
+  81 422004c7  ld r20, [r4+8]
+  82 423005c7  st r20, [r5+8]
+  83 432004c7  ld r20, [r4+12]
+  84 433005c7  st r20, [r5+12]
+  85 44130003  addi r4, #0x10
+  86 44170003  addi r5, #0x10
+  87 441b0043  subi r6, #0x10
+  88 3d18bbbc  bgt    77
+  89 c01d0c42  ret s31
+  90 003001c7  st r0, [r5]
+  91 013001c7  st r0, [r5+4]
+  92 023001c7  st r0, [r5+8]
+  93 033001c7  st r0, [r5+12]
+  94 44170003  addi r5, #0x10
+  95 441b0043  subi r6, #0x10
+  96 3e58bbbc  bgt    90
+  97 c01d0c42  ret s31
+  98 402084c7  ld.h r20, [r4]
+  99 403085c7  st.h r20, [r5]
+ 100 40930043  subi r4, #0x2
+ 101 40970003  addi r5, #0x2
+ 102 402084c7  ld.h r20, [r4]
+ 103 403085c7  st.h r20, [r5]
+ 104 40930043  subi r4, #0x2
+ 105 40970003  addi r5, #0x2
+ 106 411b0043  subi r6, #0x4
+ 107 3d98bbbc  bgt    98
+ 108 c01d0c42  ret s31
+ 109 c01d0c42  ret s31
+ 110 c01d0c42  ret s31
+ 111 d7de2e7f  sub s31, s30, r11
+D0    00000005
+D1    0000002a
+D2    0000003f
+D3    0000004c

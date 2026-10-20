@@ -1,0 +1,39 @@
+; Konami 056734 (ESC). Canonical encoding (konami_056734_manual.md section 2.4).
+; Generated from the Taisen Puzzle-dama / Crazy Cross ROM (MAME set puzldama) with esccipher.py and escdis.py.
+; Program image at host 0x203676: A=26 B=10 C=0 D=16 E=0 F=24 G=0x802C salt 0x732D4C14 checksum 0xF0DD
+   0 40190002  push r6
+   1 40150002  push r5
+   2 40110002  push r4
+   3 402501c3  ld(l) r5, [r1]
+   4 406101c3  ld(l) r4, [r1+1]
+   5 40a841c7  ld.b r6, [r5+2]
+   6 41db8083  andi.h r6, #0x7
+   7 401a8206  shl.h r6, r6
+   8 401a8206  shl.h r6, r6
+   9 401a8206  shl.h r6, r6
+  10 4c128007  add.h r4, r4, r6
+  11 c03e0447  mov r31, r4
+  12 40310002  pop r4
+  13 40350002  pop r5
+  14 40390002  pop r6
+  15 c01d0c42  ret s31
+  16 40150002  push r5
+  17 40110002  push r4
+  18 402101c3  ld(l) r4, [r1]
+  19 04420040  li r5, #0x11
+  20 403400c7  st r5, [r4]
+  21 40310002  pop r4
+  22 40350002  pop r5
+  23 c01d0c42  ret s31
+  24 c01d0c42  ret s31
+  25 d7de2e7f  sub s31, s30, r11
+D0    00c10000
+D1    00c10300
+D2    00c10400
+D3    00c11700
+D4    00c11c00
+D5    00c1d900
+D6    00c1da00
+D7    00c1ff00
+D8    00c11800
+D9    00c11b00

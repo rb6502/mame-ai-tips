@@ -1,0 +1,607 @@
+; Konami 056734 (ESC). Canonical encoding (konami_056734_manual.md section 2.4).
+; Generated from the Sexy Parodius ROM (MAME set sexyparo) with esccipher.py and escdis.py.
+; Boot object at host 0x200104 (601 words after the count at 0x200100).
+; Words 0-526 code, 527-600 data. "decoded" applies the routine at word 279
+; (x ^ 0x7C4F18BD, then swap16), used to compare the 69 words from local 0x214 (532)
+; with the BIOS text at 0x002558. The s11[31:28] check (words 7-42) reads local 0x213 on.
+   0 4027c4d8  li r31, #0xD56000
+   1 f55c04c2  lih r31, #0xD5
+   2 203300c0  li r30, #0x80
+   3 003043df  st.b r0, [r31]
+   4 c03847df  st.b r30, [r31]
+   5 c03847df  st.b r30, [r31]
+   6 003043df  st.b r0, [r31]
+   7 3f4a8030  li r1, #0x82C0FD
+   8 209431fa  lih r1, #0xE782
+   9 5f7e9530  li r2, #0x97C57D
+  10 25d833de  lih r2, #0x7F97
+  11 04d22040  li r4, #0x213
+  12 04120080  li r8, #0x10
+  13 3fe20040  li r7, #0xFF
+  14 003e036b  mov r3, s11
+  15 003c0342  swap16 r3, r3
+  16 001e8382  rol.h r3, r3
+  17 001e8382  rol.h r3, r3
+  18 001e8382  rol.h r3, r3
+  19 001e8382  rol.h r3, r3
+  20 03df8083  andi.h r3, #0xF
+  21 402500c7  ld(l) r5, [r4]
+  22 441601c7  xor r5, r5, r2
+  23 403a0147  mov r6, r5
+  24 403a0286  ror r6, r6
+  25 403a0286  ror r6, r6
+  26 403a0286  ror r6, r6
+  27 403a0286  ror r6, r6
+  28 403a0286  ror r6, r6
+  29 403a0286  ror r6, r6
+  30 403a0286  ror r6, r6
+  31 403a0286  ror r6, r6
+  32 4a1a0287  and r6, r6, r5
+  33 0a120247  sub r0, r6, r5
+  34 02388800  bne    43
+  35 0e124147  sub.b r0, r5, r7
+  36 02688800  beq    46
+  37 06128147  sub.h r0, r5, r3
+  38 01288800  beq    43
+  39 40538003  addi.h r4, #0x1
+  40 021a0203  add r2, r2, r1
+  41 80538043  subi.h r8, #0x1
+  42 3ab8bb3c  bne    21
+  43 407b4843  ori.b s6, #0x1
+  44 26d99800  call   456
+  45 3f58bb3c  jmp    43
+  46 c012c001  st.abs r0, [0xCC0000]
+  47 c03e076b  mov r31, s11
+  48 c02c07df  ld r31, [r31]
+  49 fe3e8443  or.h r31, r0, r31
+  50 c01e071e  shl r31, r31
+  51 c01e071e  shl r31, r31
+  52 c11f0403  addi r31, #0x4
+  53 fe1e072b  add r31, s11, r31
+  54 c02c07df  ld r31, [r31]
+  55 4032035f  mov r4, r31
+  56 00360847  mov s1, r4
+  57 803e0006  shr r11, r4
+  58 c0320047  mov r12, r4
+  59 803a0263  mov r10, s2
+  60 23d88800  jmp    204
+  61 0012014f  sub r0, r13, r0
+  62 06788800  bne    88
+  63 00120080  li r8, #0x0
+  64 16422080  li r9, #0x259
+  65 403a0006  shr r6, r4
+  66 402d00cb  ld(l) r7, [r8]
+  67 403d02c7  st(l) r7, [r6]
+  68 80530003  addi r8, #0x1
+  69 405b0003  addi r6, #0x1
+  70 1012014b  sub r0, r9, r8
+  71 3e98bbbc  bgt    66
+  72 403a0006  shr r6, r4
+  73 52988000  jr r6+74
+  74 801e038b  and r11, r11, r0
+  75 c0320006  shr r12, r4
+  76 803a0263  mov r10, s2
+  77 1f988800  jmp    204
+  78 0012014f  sub r0, r13, r0
+  79 02388800  bne    88
+  80 80320406  shr r24, r4
+  81 28d98800  call   245
+  82 0b599800  call   384
+  83 8032075f  mov r24, r31
+  84 80360447  mov r25, r4
+  85 00198800  call   86
+  86 003181e3  st(l).h r0, [s1]
+  87 c01d0c42  ret s31
+  88 40120497  and r20, r20, r0
+  89 0033337c  li r22, #0xFF00
+  90 3fe30040  li r23, #0xFF
+  91 00430040  li r21, #0x1
+  92 1a120397  and r0, r23, r13
+  93 00688800  beq    95
+  94 6a324457  or.b r20, r20, r21
+  95 40164516  shl.b r21, r21
+  96 1a120297  and r0, r22, r13
+  97 00688800  beq    99
+  98 6a324457  or.b r20, r20, r21
+  99 c034014e  swap16 r13, r13
+ 100 40164516  shl.b r21, r21
+ 101 1a120397  and r0, r23, r13
+ 102 00688800  beq    104
+ 103 6a324457  or.b r20, r20, r21
+ 104 40164516  shl.b r21, r21
+ 105 1a120297  and r0, r22, r13
+ 106 00688800  beq    108
+ 107 6a324457  or.b r20, r20, r21
+ 108 407b4843  ori.b s6, #0x1
+ 109 00120367  sub r0, s7, r0
+ 110 3fa8bb3c  beq    109
+ 111 403a0767  mov r22, s7
+ 112 c012c001  st.abs r0, [0xCC0000]
+ 113 403006d7  st r20, [r22]
+ 114 3e98bb3c  jmp    109
+ 115 00730000  li r18, #0x1
+ 116 001804c2  lih r18, #0x0
+ 117 001c8400  jr r19
+ 118 5b5be350  li r20, #0xC64E6D
+ 119 719014d2  lih r20, #0x41C6
+ 120 40100692  mul r20, r18
+ 121 0e6300cc  li r31, #0x3039
+ 122 00000000  nop
+ 123 00000000  nop
+ 124 00000000  nop
+ 125 00000000  nop
+ 126 00000000  nop
+ 127 00000000  nop
+ 128 00000000  nop
+ 129 00000000  nop
+ 130 00000000  nop
+ 131 00000000  nop
+ 132 00000000  nop
+ 133 00000000  nop
+ 134 00000000  nop
+ 135 00000000  nop
+ 136 00000000  nop
+ 137 00000000  nop
+ 138 fe1e042b  add r31, s8, r31
+ 139 4036046b  mov r21, s8
+ 140 40100596  mul r20, r21
+ 141 c01e879f  and.h r31, r31, r0
+ 142 00000000  nop
+ 143 00000000  nop
+ 144 00000000  nop
+ 145 00000000  nop
+ 146 00000000  nop
+ 147 00000000  nop
+ 148 00000000  nop
+ 149 00000000  nop
+ 150 00000000  nop
+ 151 00000000  nop
+ 152 00000000  nop
+ 153 00000000  nop
+ 154 00000000  nop
+ 155 00000000  nop
+ 156 00000000  nop
+ 157 00000000  nop
+ 158 4036046b  mov r21, s8
+ 159 003a0557  mov r18, r21
+ 160 0e5b040f  addi r18, #0x3039
+ 161 40300652  swap16 r20, r18
+ 162 e83e875f  or.h r31, r31, r20
+ 163 001c8400  jr r19
+ 164 003e0663  mov r19, s2
+ 165 3418bb3c  jmp    118
+ 166 c03d06cf  st(l) r31, [r14]
+ 167 c05b0003  addi r14, #0x1
+ 168 1c12034f  sub r0, r15, r14
+ 169 3ed8bbbc  bgt    165
+ 170 00148400  jr r17
+ 171 003e0663  mov r19, s2
+ 172 3258bb3c  jmp    118
+ 173 c03c071e  neg? r31, r31
+ 174 c05f0443  subi r31, #0x1
+ 175 c03d06cf  st(l) r31, [r14]
+ 176 c05b0003  addi r14, #0x1
+ 177 1c12034f  sub r0, r15, r14
+ 178 3e58bbbc  bgt    172
+ 179 00148400  jr r17
+ 180 00120493  and r16, r16, r0
+ 181 003e0663  mov r19, s2
+ 182 2fd8bb3c  jmp    118
+ 183 c00d06cf  xor(m) r31, [r14]
+ 184 00688800  beq    186
+ 185 3e320453  or r16, r16, r31
+ 186 c05b0003  addi r14, #0x1
+ 187 1c12034f  sub r0, r15, r14
+ 188 3e58bbbc  bgt    182
+ 189 c03e0453  mov r31, r16
+ 190 00148400  jr r17
+ 191 00120493  and r16, r16, r0
+ 192 003e0663  mov r19, s2
+ 193 2d18bb3c  jmp    118
+ 194 c03c071e  neg? r31, r31
+ 195 c05f0443  subi r31, #0x1
+ 196 c00d06cf  xor(m) r31, [r14]
+ 197 00688800  beq    199
+ 198 3e320453  or r16, r16, r31
+ 199 c05b0003  addi r14, #0x1
+ 200 1c12034f  sub r0, r15, r14
+ 201 3dd8bbbc  bgt    193
+ 202 c03e0453  mov r31, r16
+ 203 00148400  jr r17
+ 204 003e0663  mov r19, s2
+ 205 2958bb3c  jmp    115
+ 206 c03a034b  mov r14, r11
+ 207 c03e004f  mov r15, r12
+ 208 00360663  mov r17, s2
+ 209 3498bb3c  jmp    164
+ 210 003e0663  mov r19, s2
+ 211 27d8bb3c  jmp    115
+ 212 c03a034b  mov r14, r11
+ 213 c03e004f  mov r15, r12
+ 214 00360663  mov r17, s2
+ 215 3718bb3c  jmp    180
+ 216 c036035f  mov r13, r31
+ 217 4027c4d8  li r31, #0xD56000
+ 218 f55c04c2  lih r31, #0xD5
+ 219 203300c0  li r30, #0x80
+ 220 003043df  st.b r0, [r31]
+ 221 c03847df  st.b r30, [r31]
+ 222 c03847df  st.b r30, [r31]
+ 223 003043df  st.b r0, [r31]
+ 224 003e0663  mov r19, s2
+ 225 2458bb3c  jmp    115
+ 226 c03a034b  mov r14, r11
+ 227 c03e004f  mov r15, r12
+ 228 00360663  mov r17, s2
+ 229 3158bb3c  jmp    171
+ 230 003e0663  mov r19, s2
+ 231 22d8bb3c  jmp    115
+ 232 c03a034b  mov r14, r11
+ 233 c03e004f  mov r15, r12
+ 234 00360663  mov r17, s2
+ 235 34d8bb3c  jmp    191
+ 236 da36035f  or r13, r31, r13
+ 237 4027c4d8  li r31, #0xD56000
+ 238 f55c04c2  lih r31, #0xD5
+ 239 203300c0  li r30, #0x80
+ 240 003043df  st.b r0, [r31]
+ 241 c03847df  st.b r30, [r31]
+ 242 c03847df  st.b r30, [r31]
+ 243 003043df  st.b r0, [r31]
+ 244 80188000  jr r10
+ 245 80110002  push r8
+ 246 401d0002  push r7
+ 247 40190002  push r6
+ 248 40150002  push r5
+ 249 40110002  push r4
+ 250 4032005b  mov r4, r24
+ 251 00130080  li r24, #0x0
+ 252 1f03129c  li r25, #0x797C
+ 253 0b598800  call   299
+ 254 f7d33148  li r20, #0xC27DF
+ 255 431004c2  lih r20, #0xC
+ 256 2812035f  sub r0, r31, r20
+ 257 04f88800  bne    277
+ 258 05022040  li r5, #0x214
+ 259 48160107  add r5, r5, r4
+ 260 16221148  li r7, #0x2558
+ 261 11520080  li r8, #0x45
+ 262 80320547  mov r24, r5
+ 263 03d98800  call   279
+ 264 402803c7  ld r6, [r7]
+ 265 0c12035f  sub r0, r31, r6
+ 266 02b88800  bne    277
+ 267 40570003  addi r5, #0x1
+ 268 411f0003  addi r7, #0x4
+ 269 80530043  subi r8, #0x1
+ 270 3dd8bbbc  bgt    262
+ 271 40310002  pop r4
+ 272 40350002  pop r5
+ 273 40390002  pop r6
+ 274 403d0002  pop r7
+ 275 80310002  pop r8
+ 276 c01d0c42  ret s31
+ 277 3fd8bb3c  jmp    277
+ 278 00110082  ??? 11022
+ 279 c02d04db  ld(l) r31, [r24]
+ 280 ef5f4244  li r20, #0x4F18BD
+ 281 53d007de  lih r20, #0x7C4F
+ 282 e81e07df  xor r31, r31, r20
+ 283 c03c075e  swap16 r31, r31
+ 284 c01d0c42  ret s31
+ 285 c01e079f  and r31, r31, r0
+ 286 0012815b  sub.h r0, r25, r0
+ 287 02a88800  beq    298
+ 288 402104db  ld(l) r20, [r24]
+ 289 68368443  or.h r21, r0, r20
+ 290 ea1e071f  add r31, r31, r21
+ 291 40300456  swap16 r20, r20
+ 292 68368443  or.h r21, r0, r20
+ 293 401404c2  lih r21, #0x0
+ 294 ea1e071f  add r31, r31, r21
+ 295 80530403  addi r24, #0x1
+ 296 80578443  subi.h r25, #0x1
+ 297 3db8bbbc  bhi    288
+ 298 c01d0c42  ret s31
+ 299 c01e079f  and r31, r31, r0
+ 300 40160597  and r21, r21, r0
+ 301 4032055b  mov r20, r25
+ 302 41d38483  andi.h r20, #0x7
+ 303 01688800  beq    309
+ 304 402444db  ld.b r21, [r24]
+ 305 ea1e071f  add r31, r31, r21
+ 306 80530403  addi r24, #0x1
+ 307 40538443  subi.h r20, #0x1
+ 308 3ef8bbbc  bhi    304
+ 309 8036051a  shr r25, r25
+ 310 8036051a  shr r25, r25
+ 311 8036051a  shr r25, r25
+ 312 05688800  beq    334
+ 313 04334843  ori.b s0, #0x10
+ 314 402444db  ld.b r21, [r24]
+ 315 ea1e071f  add r31, r31, r21
+ 316 406444db  ld.b r21, [r24+1]
+ 317 ea1e071f  add r31, r31, r21
+ 318 40a444db  ld.b r21, [r24+2]
+ 319 ea1e071f  add r31, r31, r21
+ 320 40e444db  ld.b r21, [r24+3]
+ 321 ea1e071f  add r31, r31, r21
+ 322 412444db  ld.b r21, [r24+4]
+ 323 ea1e071f  add r31, r31, r21
+ 324 416444db  ld.b r21, [r24+5]
+ 325 ea1e071f  add r31, r31, r21
+ 326 41a444db  ld.b r21, [r24+6]
+ 327 ea1e071f  add r31, r31, r21
+ 328 41e444db  ld.b r21, [r24+7]
+ 329 ea1e071f  add r31, r31, r21
+ 330 82130403  addi r24, #0x8
+ 331 80570443  subi r25, #0x1
+ 332 3b78bbbc  bhi    314
+ 333 3bd34883  andi.b s0, #0xEF
+ 334 c01d0c42  ret s31
+ 335 4032076b  mov r20, s11
+ 336 40300456  swap16 r20, r20
+ 337 40133783  andi r20, #0xF00
+ 338 40340456  swap16 r21, r20
+ 339 68320557  or r20, r21, r20
+ 340 40360457  mov r21, r20
+ 341 40320416  shr r20, r20
+ 342 40320416  shr r20, r20
+ 343 40320416  shr r20, r20
+ 344 40320416  shr r20, r20
+ 345 40320416  shr r20, r20
+ 346 40320416  shr r20, r20
+ 347 40320416  shr r20, r20
+ 348 40320416  shr r20, r20
+ 349 68360557  or r21, r21, r20
+ 350 e49b9948  li r20, #0xAE2592
+ 351 6b9025ce  lih r20, #0x36AE
+ 352 6a1604d7  xor r21, r20, r21
+ 353 403a066b  mov r22, s10
+ 354 6c3a8443  or.h r22, r0, r22
+ 355 40300656  swap16 r20, r22
+ 356 683a0657  or r22, r22, r20
+ 357 ec1e05d7  xor r31, r21, r22
+ 358 c01d0c42  ret s31
+ 359 40160597  and r21, r21, r0
+ 360 403e075b  mov r23, r27
+ 361 ff1b827c  li r20, #0x8EF8FC
+ 362 639027da  lih r20, #0x6E8E
+ 363 b61e04d7  xor r27, r20, r27
+ 364 0012825b  sub.h r0, r26, r0
+ 365 03d88800  jmp    381
+ 366 402804db  ld r22, [r24]
+ 367 6c1a07db  xor r22, r27, r22
+ 368 403905db  st(l) r22, [r25]
+ 369 b61e0717  add r27, r23, r27
+ 370 4032075b  mov r20, r27
+ 371 40300456  swap16 r20, r20
+ 372 681e07d7  xor r23, r23, r20
+ 373 6c328443  or.h r20, r0, r22
+ 374 68160517  add r21, r21, r20
+ 375 40380656  swap16 r22, r22
+ 376 6c328443  or.h r20, r0, r22
+ 377 68160517  add r21, r21, r20
+ 378 81130403  addi r24, #0x4
+ 379 80578403  addi.h r25, #0x1
+ 380 805b8443  subi.h r26, #0x1
+ 381 3c18bbbc  bgt    366
+ 382 c03e0557  mov r31, r21
+ 383 c01d0c42  ret s31
+ 384 80150002  push r9
+ 385 80110002  push r8
+ 386 401d0002  push r7
+ 387 40190002  push r6
+ 388 40150002  push r5
+ 389 40110002  push r4
+ 390 c03e076b  mov r31, s11
+ 391 c02c07df  ld r31, [r31]
+ 392 fe3e8443  or.h r31, r0, r31
+ 393 c01e071e  shl r31, r31
+ 394 c01e071e  shl r31, r31
+ 395 c11f0403  addi r31, #0x4
+ 396 fe1e072b  add r31, s11, r31
+ 397 c11f0403  addi r31, #0x4
+ 398 4032035f  mov r4, r31
+ 399 7edfcd48  li r20, #0xF724FB
+ 400 7dd027fe  lih r20, #0xFEF7
+ 401 40000447  cmp.m r20, [r4]
+ 402 0cb88800  bne    453
+ 403 2ed9bb3c  call   335
+ 404 403e035f  mov r7, r31
+ 405 40360047  mov r5, r4
+ 406 46170003  addi r5, #0x18
+ 407 401a8287  and.h r6, r6, r0
+ 408 812480c7  ld.h r9, [r4+4]
+ 409 a59783cf  xori.h r9, #0x3C96
+ 410 80320547  mov r24, r5
+ 411 80360647  mov r25, r6
+ 412 803a054b  mov r26, r9
+ 413 803e0747  mov r27, r7
+ 414 3219bb3c  call   359
+ 415 8032035f  mov r8, r31
+ 416 521a8207  add.h r6, r6, r9
+ 417 003e0247  mov r3, r6
+ 418 8016010a  shl r9, r9
+ 419 8016010a  shl r9, r9
+ 420 52160107  add r5, r5, r9
+ 421 81a480c7  ld.h r9, [r4+6]
+ 422 b95792ef  xori.h r9, #0xB9E5
+ 423 80320547  mov r24, r5
+ 424 80360647  mov r25, r6
+ 425 803a054b  mov r26, r9
+ 426 803e0747  mov r27, r7
+ 427 2ed9bb3c  call   359
+ 428 be12000b  add r8, r8, r31
+ 429 4027c4d8  li r31, #0xD56000
+ 430 f55c04c2  lih r31, #0xD5
+ 431 203300c0  li r30, #0x80
+ 432 003043df  st.b r0, [r31]
+ 433 c03847df  st.b r30, [r31]
+ 434 c03847df  st.b r30, [r31]
+ 435 003043df  st.b r0, [r31]
+ 436 521a8207  add.h r6, r6, r9
+ 437 003a0247  mov r2, r6
+ 438 822480c7  ld.h r9, [r4+8]
+ 439 a957b1db  xori.h r9, #0x67A5
+ 440 521a8207  add.h r6, r6, r9
+ 441 411b8003  addi.h r6, #0x4
+ 442 7f1bb3bf  andi.h r6, #0xFFFC
+ 443 84808047  cmp.m.h r8, [r4+18]
+ 444 02388800  bne    453
+ 445 c03e0647  mov r31, r6
+ 446 40310002  pop r4
+ 447 40350002  pop r5
+ 448 40390002  pop r6
+ 449 403d0002  pop r7
+ 450 80310002  pop r8
+ 451 80350002  pop r9
+ 452 c01d0c42  ret s31
+ 453 407b4843  ori.b s6, #0x1
+ 454 00598800  call   456
+ 455 3f58bb3c  jmp    453
+ 456 00120367  sub r0, s7, r0
+ 457 3fa8bb3c  beq    456
+ 458 04334843  ori.b s0, #0x10
+ 459 00150002  push r1
+ 460 c01d0402  push r31
+ 461 c03e0767  mov r31, s7
+ 462 a1466438  li r1, #0x59E285
+ 463 165431f2  lih r1, #0xC759
+ 464 0004035f  cmp.m r1, [r31]
+ 465 0f788800  bne    527
+ 466 c012c001  st.abs r0, [0xCC0000]
+ 467 006501e3  ld(l) r1, [s1+1]
+ 468 253403df  st r1, [r31+148]
+ 469 263803df  st r2, [r31+152]
+ 470 273c03df  st r3, [r31+156]
+ 471 683003df  st r4, [r31+160]
+ 472 693403df  st r5, [r31+164]
+ 473 6a3803df  st r6, [r31+168]
+ 474 6b3c03df  st r7, [r31+172]
+ 475 ac3003df  st r8, [r31+176]
+ 476 ad3403df  st r9, [r31+180]
+ 477 ae3803df  st r10, [r31+184]
+ 478 af3c03df  st r11, [r31+188]
+ 479 f03003df  st r12, [r31+192]
+ 480 f13403df  st r13, [r31+196]
+ 481 f23803df  st r14, [r31+200]
+ 482 f33c03df  st r15, [r31+204]
+ 483 343007df  st r16, [r31+208]
+ 484 353407df  st r17, [r31+212]
+ 485 363807df  st r18, [r31+216]
+ 486 373c07df  st r19, [r31+220]
+ 487 783007df  st r20, [r31+224]
+ 488 793407df  st r21, [r31+228]
+ 489 7a3807df  st r22, [r31+232]
+ 490 7b3c07df  st r23, [r31+236]
+ 491 bc3007df  st r24, [r31+240]
+ 492 bd3407df  st r25, [r31+244]
+ 493 be3807df  st r26, [r31+248]
+ 494 bf3c07df  st r27, [r31+252]
+ 495 c03017df  st r28, [r31+256]
+ 496 c13417df  st r29, [r31+260]
+ 497 c23817df  st r30, [r31+264]
+ 498 002501e3  ld(l) r1, [s1]
+ 499 033413df  st r1, [r31+268]
+ 500 00360163  mov r1, s1
+ 501 00978003  addi.h r1, #0x2
+ 502 053493df  st.h r1, [r31+276]
+ 503 002501c3  ld(l) r1, [r1]
+ 504 043413df  st r1, [r31+272]
+ 505 0036006b  mov r1, s8
+ 506 063413df  st r1, [r31+280]
+ 507 0036016b  mov r1, s9
+ 508 073413df  st r1, [r31+284]
+ 509 c83c17df  st r31, [r31+288]
+ 510 40110002  push r4
+ 511 001d0002  push r3
+ 512 00190002  push r2
+ 513 032403df  ld r1, [r31+12]
+ 514 003a035f  mov r2, r31
+ 515 08220000  li r3, #0x20
+ 516 402101c3  ld(l) r4, [r1]
+ 517 443002c3  st r4, [r2+16]
+ 518 00570003  addi r1, #0x1
+ 519 011b0003  addi r2, #0x4
+ 520 005f0043  subi r3, #0x1
+ 521 3eb8bbbc  bhi    516
+ 522 00390002  pop r2
+ 523 003d0002  pop r3
+ 524 40310002  pop r4
+ 525 00420000  li r1, #0x1
+ 526 013403df  st r1, [r31+4]
+D527  2355e69e  ; decoded fe235f1a ".#_."
+D528  d8bbaa1f  ; decoded b2a2a4f4 "...."
+D529  18b3ae1f  ; decoded b6a264fc "..d."
+D530  d8bba25f  ; decoded bae2a4f4 "...."
+D531  80683a82  ; decoded 223ffc27 ""?.'"
+D532  5c6f389d  ; decoded 20202020 "    "
+D533  5c6f389d  ; decoded 20202020 "    "
+D534  1d3d38ea  ; decoded 20576172 " War"
+D535  122876d4  ; decoded 6e696e67 "ning"
+D536  2f3a229d  ; decoded 3a205375 ": Su"
+D537  3e207a9d  ; decoded 6220426f "b Bo"
+D538  186f79cf  ; decoded 61726420 "ard "
+D539  5c2171ce  ; decoded 6973206e "is n"
+D540  5c2c77c9  ; decoded 6f742063 "ot c"
+D541  122a77d3  ; decoded 6f6e6e65 "onne"
+D542  192b7bc9  ; decoded 63746564 "cted"
+D543  153b38ca  ; decoded 20776974 " wit"
+D544  3120709d  ; decoded 68204d6f "h Mo"
+D545  193d6cd5  ; decoded 74686572 "ther"
+D546  132e38ff  ; decoded 20426f61 " Boa"
+D547  526f6ad9  ; decoded 72642e20 "rd. "
+D548  193d4cd5  ; decoded 54686572 "Ther"
+D549  133d7ddb  ; decoded 65666f72 "efor"
+D550  5c3f7d91  ; decoded 652c2070 "e, p"
+D551  1d3c74d8  ; decoded 6c656173 "leas"
+D552  083a7d9d  ; decoded 65207475 "e tu"
+D553  5c206ad3  ; decoded 726e206f "rn o"
+D554  5c3b7edb  ; decoded 66662074 "ff t"
+D555  5c3f70d8  ; decoded 68652070 "he p"
+D556  193d77ca  ; decoded 6f776572 "ower"
+D557  122b38dc  ; decoded 20616e64 " and"
+D558  1d2438d0  ; decoded 206d616b " mak"
+D559  0f3a7d9d  ; decoded 65207375 "e su"
+D560  5c3b6ad8  ; decoded 72652074 "re t"
+D561  086f70dc  ; decoded 68617420 "hat "
+D562  08277ad2  ; decoded 626f7468 "both"
+D563  092d38ee  ; decoded 20537562 " Sub"
+D564  122b38dc  ; decoded 20616e64 " and"
+D565  133b38f0  ; decoded 204d6f74 " Mot"
+D566  0e6f70d8  ; decoded 68657220 "her "
+D567  1d3d5ad2  ; decoded 426f6172 "Boar"
+D568  1f207c9d  ; decoded 6420636f "d co"
+D569  192c76d3  ; decoded 6e6e6563 "nnec"
+D570  186f6cd8  ; decoded 74656420 "ted "
+D571  08276fd4  ; decoded 77697468 "with"
+D572  1d2c38d8  ; decoded 20656163 " eac"
+D573  133b709d  ; decoded 68206f74 "h ot"
+D574  0e6170d8  ; decoded 6865722e "her."
+D575  142a38e9  ; decoded 20546865 " The"
+D576  0c23769d  ; decoded 6e20706c "n pl"
+D577  0f2a7ddc  ; decoded 65617365 "ease"
+D578  093d38c9  ; decoded 20747572 " tur"
+D579  1321769d  ; decoded 6e206f6e "n on"
+D580  142a38c9  ; decoded 20746865 " the"
+D581  133838cd  ; decoded 20706f77 " pow"
+D582  5c3d7dcf  ; decoded 65722072 "er r"
+D583  193b7dce  ; decoded 65736574 "eset"
+D584  136f38c9  ; decoded 20746f20 " to "
+D585  1d3d6bc9  ; decoded 73746172 "star"
+D586  08276c9d  ; decoded 74207468 "t th"
+D587  1b2e7d9d  ; decoded 65206761 "e ga"
+D588  526f75d8  ; decoded 6d652e20 "me. "
+D589  457b2984  ; decoded 31393934 "1994"
+D590  754538b5  ; decoded 2008090a " ..."
+D591  716f13b1  ; decoded 0b0c0d20 "... "
+D592  52635bd2  ; decoded 436f2e2c "Co.,"
+D593  186154c9  ; decoded 4c74642e "Ltd."
+D594  102338fc  ; decoded 20416c6c " All"
+D595  152838cf  ; decoded 20726967 " rig"
+D596  5c3d70c9  ; decoded 68742072 "ht r"
+D597  193d7dce  ; decoded 65736572 "eser"
+D598  18616ed8  ; decoded 7665642e "ved."
+D599  5c6f389d  ; decoded 20202020 "    "
+D600  5c6f389d  ; decoded 20202020 "    "

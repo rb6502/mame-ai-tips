@@ -2,7 +2,7 @@
 
 The calibration in [SKILL.md](SKILL.md) governs every rule here: the file's existing style wins, only lines the change adds or modifies are in scope, and the listed accepted variations are never findings.
 
-Each rule gives an ID, a default tier, the rule, **Grep** (a Perl-compatible regex for `grep -P` or `rg`, run over the lines the change adds; it finds candidates, never findings), **Not when** (exceptions, always including "the file consistently does otherwise" for layout and naming rules), and **Source**. A source is a section of the [C++ Coding Guidelines](https://docs.mamedev.org/contributing/cxx.html) (`cxx: <section>`) or [Contributing](https://docs.mamedev.org/contributing/) page (`contrib: <section>`); a `mamedev/mame` commit in which a core developer applied the rule to someone else's merged code (`https://github.com/mamedev/mame/commit/<hash>`); or a pull request where a core developer asked for it in review (`#<n>`: `https://github.com/mamedev/mame/pull/<n>`).
+Each rule gives an ID, a default tier, the rule, **Grep** (a Perl-compatible regex for `grep -P` or `rg`, run over the lines the change adds; it finds candidates, never findings), **Not when** (exceptions, always including "the file consistently does otherwise" for layout and naming rules), and **Source**. A source is a section of the [C++ Coding Guidelines](https://docs.mamedev.org/contributing/cxx.html) (`cxx: <section>`) or [Contributing](https://docs.mamedev.org/contributing/) page (`contrib: <section>`); a `mamedev/mame` commit in which a core developer applied the rule to someone else's merged code (`https://github.com/mamedev/mame/commit/<hash>`); or a pull request where a core developer asked for it in review (`#<n>`: `https://github.com/mamedev/mame/pull/<n>`); or a named core developer who added the rule to this skill directly.
 
 A Tidy rule becomes Blocking only when step 5 of SKILL.md traces a concrete failure from it.
 
@@ -125,7 +125,7 @@ A file headed "Generated … edits will be lost" or "do not edit" is never edite
 ## N. Naming
 
 ### N-1 Casing · Tidy
-Functions, variables, classes and members are snake_case; constants, enumerators, macros and device types SCREAMING_SNAKE_CASE (only for real constants); template parameters LlamaCase (`template <unsigned Which>`); abstract classes end in `_base`, driver classes in `_state`, devices in `_device`, interfaces are `device_…_interface`. The `m_` prefix (optional, used consistently) marks instance members only — never locals, statics or constants.
+Functions, variables, classes and members are snake_case; constants, enumerators, macros and device types SCREAMING_SNAKE_CASE (only for real constants); template parameters LlamaCase (`template <u32 Which>`); abstract classes end in `_base`, driver classes in `_state`, devices in `_device`, interfaces are `device_…_interface`. The `m_` prefix (optional, used consistently) marks instance members only — never locals, statics or constants.
 - Grep: `template\s*<\s*(typename|class|int|unsigned|bool|size_t|u\d+)\s+[a-z_]`; `^\s+[\w:<>]+\s+m_\w+\s*=` inside function bodies; camelCase identifiers in added lines
 - Not when: names mirroring a datasheet's register names or a generator's conventions; names the change doesn't introduce; established `_r`/`_w` handler suffixes.
 - Source: cxx: Naming conventions; 8c7f1a819db, 9359d54aeee; #11468, #13421
@@ -187,7 +187,7 @@ Use devcb's features instead of trampolines: `.set_inputline(cpu, LINE)`, `.set_
 - Source: 7808b3a7862, 2cabaf1541c, fcb4f01dfb4, 38fd821b643, d4024db0e8e; #14319, #13560, #10926, #14981
 
 ### D-8 Reuse, don't reimplement · Tidy
-Use what MAME already has: the hopper (`ticket_dispenser_device`, `machine/ticket.h`) for gambling payouts, `generic_latch_8_device`, `input_merger`, `util::sext`, `bitswap`, `get_u16le`/`put_u32be`, `util::little_endian_cast`/`big_endian_cast`, `clocks_to_attotime`, `std::ranges` algorithms. Handlers, tile callbacks or helpers that differ only by an index become one `template <unsigned N>` member bound as `FUNC(cls::fn<N>)`, and a `switch` that picks among numbered tags becomes an indexed finder array. Copy-pasted functions are merged.
+Use what MAME already has: the hopper (`ticket_dispenser_device`, `machine/ticket.h`) for gambling payouts, `generic_latch_8_device`, `input_merger`, `util::sext`, `bitswap`, `get_u16le`/`put_u32be`, `util::little_endian_cast`/`big_endian_cast`, `clocks_to_attotime`, `std::ranges` algorithms. Handlers, tile callbacks or helpers that differ only by an index become one `template <u32 N>` member bound as `FUNC(cls::fn<N>)`, and a `switch` that picks among numbered tags becomes an indexed finder array. Copy-pasted functions are merged.
 - Grep: local hopper motor timers; hand-rolled latch/ack flags; runs of names differing in one digit (`_p1_r`/`_p2_r`, `_0_w` … `_7_w`); `case N:` blocks differing by a constant
 - Not when: variants with different logic; deriving from a device just to reuse part of it.
 - Source: 511b9de919b, 5f27f5e9c3f, 2cabaf1541c, 0bdb4f0669a; #16084, #15450, #14754
